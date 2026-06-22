@@ -1,26 +1,414 @@
 @import "tailwindcss";
 
+/* =========================
+   FONTS
+========================= */
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap'); */
+
+/* =========================
+   DESIGN TOKENS
+========================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gold: #d4af37;
+  --gold-light: #e8cc6a;
+  --gold-dark: #b8941e;
+  --midnight: #0b1a2f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* =========================
+   RESET
+========================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--midnight);
+  color: #fff;
+  font-family: 'Noto Serif', Georgia, serif;
+  overflow-x: hidden;
 }
+
+/* =========================
+   AOS ANIMATION
+========================= */
+[data-aos] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-aos="zoom-in"] {
+  transform: scale(0.92);
+}
+
+[data-aos].aos-animate {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* =========================
+   TYPOGRAPHY HELPERS
+========================= */
+.script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.serif {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* =========================
+   LAYOUT HELPERS
+========================= */
+section {
+  padding: 100px 0;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* =========================
+   DIVIDERS
+========================= */
+.gold-divider {
+  width: 80px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.gold-divider-full {
+  width: 100%;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.4),
+    var(--gold),
+    rgba(212, 175, 55, 0.4),
+    transparent
+  );
+}
+
+/* =========================
+   NAV (FIXED + CLEAN)
+========================= */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  padding: 20px 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 26, 47, 0.95),
+    transparent
+  );
+
+  transition: background 0.3s ease, border-bottom 0.3s ease;
+}
+
+nav.scrolled {
+  background: rgba(11, 26, 47, 0.97);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.nav-logo {
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: #fff;
+  text-decoration: none;
+
+  opacity: 0.75;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+  color: var(--gold);
+}
+
+/* =========================
+   HERO (NEW PARALLAX SYSTEM)
+========================= */
+.hero {
+  position: relative;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+}
+/* 🌌 BASE BLUE BACKGROUND */
+.hero-bg-base {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    #132440 0%,
+    var(--midnight) 70%
+  );
+}
+
+/* 🖼️ PARALLAX IMAGE */
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background-size: cover;        /* ✅ key: fills area */
+  background-position: center;   /* ✅ keeps focus centered */
+  background-repeat: no-repeat;
+
+  filter: brightness(0.75);
+
+  will-change: transform;
+}
+
+/* 🌫️ DOT LAYER */
+.hero-dots {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.2) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+
+  opacity: 0.12;
+  pointer-events: none;
+
+  will-change: transform;
+}
+
+/* 📝 HERO CONTENT */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+/* HERO TEXT */
+.hero-names,
+.hero-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(72px, 14vw, 140px);
+  line-height: 1;
+}
+
+.hero-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 3vw, 20px);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 20px 0;
+  font-weight: 300;
+}
+
+.hero-location {
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* =========================
+   SCROLL INDICATOR
+========================= */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  opacity: 0.5;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  animation: fadeFloat 2s ease-in-out infinite;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+
+/* animation */
+@keyframes fadeFloat {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-6px);
+    opacity: 0.8;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+  nav {
+    padding: 16px 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-logo {
+    font-size: 18px;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  /* HERO */
+
+    .hero-bg-image {
+    transform: none !important; /* ❗ disables parallax */
+    background-position: center top; /* better crop for mobile */
+  }
+
+  .hero {
+    min-height: 100dvh;
+    height: auto;
+    padding: 100px 16px 60px;
+  }
+
+  .hero-names,
+  .hero-title {
+    font-size: clamp(48px, 10vw, 90px);
+  }
+
+  .hero-date {
+    letter-spacing: 4px;
+  }
+}
+
+
+
+
+/* 
+@media (max-width: 768px) {
+  .hero {
+    padding: 100px 20px 60px;
+  }
+
+  .heroNames {
+    font-size: 64px;
+  }
+
+  .scrollIndicator {
+    display: none;
+  }
+
+  .storyImagePlaceholder {
+    min-height: 260px;
+  }
+
+  .celebrationCard {
+    padding: 28px;
+  }
+
+  .rsvpCard {
+    padding: 32px 20px;
+  }
+
+  .footerLinks {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroNames {
+    font-size: 54px;
+  }
+
+  .sectionTitle {
+    font-size: 38px;
+  }
+
+  .countdownNumber {
+    font-size: 36px;
+  }
+
+  .footerNames {
+    font-size: 40px;
+  }
+
+  .radioGroup {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .heroLocation {
+    max-width: 280px;
+    margin-inline: auto;
+  }
+} */
