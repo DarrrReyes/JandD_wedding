@@ -1,9 +1,10 @@
 'use client'
-import { Anchor, Box, Burger, Container, Drawer, Group, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Box, Burger, Container, Drawer, Grid, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { useState, useEffect, useRef } from "react";
 import { useMediaQuery } from '@mantine/hooks';
+import dayjs from "dayjs";
 
-const WEDDING_DATE = new Date("2024-10-24T16:00:00");
+const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
 const GOLD = "#D4AF37";
 const MIDNIGHT = "#0B1A2F";
@@ -471,24 +472,24 @@ function useCountdown(targetDate) {
   return timeLeft;
 }
 
-function useAOS() {
-  useEffect(() => {
-    const els = document.querySelectorAll('[data-aos]');
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const delay = parseInt(e.target.dataset.aosDelay || 0);
-            setTimeout(() => e.target.classList.add('aos-animate'), delay);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-    els.forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
-}
+// function useAOS() {
+//   useEffect(() => {
+//     const els = document.querySelectorAll('[data-aos]');
+//     const obs = new IntersectionObserver(
+//       (entries) => {
+//         entries.forEach(e => {
+//           if (e.isIntersecting) {
+//             const delay = parseInt(e.target.dataset.aosDelay || 0);
+//             setTimeout(() => e.target.classList.add('aos-animate'), delay);
+//           }
+//         });
+//       },
+//       { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+//     );
+//     els.forEach(el => obs.observe(el));
+//     return () => obs.disconnect();
+//   }, []);
+// }
 
 function useScrollNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -500,17 +501,17 @@ function useScrollNav() {
   return scrolled;
 }
 
-function useParallax(speed = 0.45) {
-  const [offset, setOffset] = useState(0);
-  useEffect(() => {
-    const onScroll = () => setOffset(window.scrollY * speed);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [speed]);
-  return offset;
-}
+// function useParallax(speed = 0.45) {
+//   const [offset, setOffset] = useState(0);
+//   useEffect(() => {
+//     const onScroll = () => setOffset(window.scrollY * speed);
+//     window.addEventListener('scroll', onScroll, { passive: true });
+//     return () => window.removeEventListener('scroll', onScroll);
+//   }, [speed]);
+//   return offset;
+// }
 
-const pad = n => String(n).padStart(2, '0');
+const pad = (n: number) => String(n).padStart(2, "0");
 
 const SWATCHES = [
   { color: MIDNIGHT, label: 'Midnight' },
@@ -522,7 +523,7 @@ const SWATCHES = [
 ];
 
 export default function WeddingInvitation() {
-  useAOS();
+  // useAOS();
   const scrolled = useScrollNav();
   // const parallaxOffset = useParallax(0.45);
   const { days, hours, minutes, seconds } = useCountdown(WEDDING_DATE);
@@ -543,7 +544,7 @@ export default function WeddingInvitation() {
 
   const isMobile = useMediaQuery('(max-width: 768px)');
   // ✅ ONLY ONE declaration
-   const [scrollY, setScrollY] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -600,48 +601,48 @@ export default function WeddingInvitation() {
 
       {/* Hero */}
       <Box className="hero">
-      {/* 🌌 BASE BLUE BACKGROUND */}
-      <Box className="hero-bg-base" />
+        {/* 🌌 BASE BLUE BACKGROUND */}
+        <Box className="hero-bg-base" />
 
-      {/* 🖼️ PARALLAX IMAGE LAYER */}
-      <Box
-        className="hero-bg-image"
-        style={{
-          transform: `translateY(${scrollY * 0.2}px)`,
-          backgroundImage:
-            'url(https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2000&q=80)',
-        }}
-      />
+        {/* 🖼️ PARALLAX IMAGE LAYER */}
+        <Box
+          className="hero-bg-image"
+          style={{
+            transform: `translateY(${scrollY * 0.2}px)`,
+            backgroundImage:
+              'url(https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2000&q=80)',
+          }}
+        />
 
-      {/* 🌫️ DOT LAYER */}
-      <Box
-        className="hero-dots"
-        style={{
-          transform: `translateY(${scrollY * 0.1}px)`,
-        }}
-      />
+        {/* 🌫️ DOT LAYER */}
+        <Box
+          className="hero-dots"
+          style={{
+            transform: `translateY(${scrollY * 0.1}px)`,
+          }}
+        />
 
-      {/* 📝 CONTENT */}
-      <Container size="sm" className="hero-content">
-        <Text className="hero-eyebrow" ta="center">
-          Together with their families
-        </Text>
+        {/* 📝 CONTENT */}
+        <Container size="sm" className="hero-content">
+          <Text className="hero-eyebrow" ta="center">
+            Together with their families
+          </Text>
 
-        <Title order={1} className="hero-title" ta="center">
-          Arlo & Jane
-        </Title>
+          <Title order={1} className="hero-title" ta="center">
+            Arlo & Jane
+          </Title>
 
-        <Box className="hero-divider" />
+          <Box className="hero-divider" />
 
-        <Text className="hero-date" ta="center">
-          October 24th, 2024
-        </Text>
+          <Text className="hero-date" ta="center">
+            October 24th, 2024
+          </Text>
 
-        <Text className="hero-location" ta="center">
-          The Grand Orangery · Kensington, London
-        </Text>
-      </Container>
-    </Box>
+          <Text className="hero-location" ta="center">
+            The Grand Orangery · Kensington, London
+          </Text>
+        </Container>
+      </Box>
       {/* <section className="hero" id="hero">
         Parallax background layer
         <div
@@ -670,7 +671,40 @@ export default function WeddingInvitation() {
       </section> */}
 
       {/* Countdown */}
-      <div className="countdown-section">
+      <Box component="section" className="countdown-section">
+        <Container size="lg" ta="center">
+          <Box data-aos="fade-up">
+            <Text className="eyebrow">Counting Every Moment</Text>
+
+            <Title order={2} className="section-title">
+              Until We Say I Do
+            </Title>
+
+            <div className="gold-divider" />
+          </Box>
+
+          <SimpleGrid
+            cols={{ base: 2, sm: 4 }}
+            spacing={1}
+            className="countdown-grid"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            {[
+              { value: days, label: "Days" },
+              { value: hours, label: "Hours" },
+              { value: minutes, label: "Minutes" },
+              { value: seconds, label: "Seconds" },
+            ].map(({ value, label }) => (
+              <Box key={label} className="countdown-item">
+                <span className="countdown-number">{pad(value)}</span>
+                <span className="countdown-label">{label}</span>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </Box>
+      {/* <div className="countdown-section">
         <div className="container" style={{ textAlign: 'center' }}>
           <div data-aos="fade-up">
             <span className="eyebrow">Counting Every Moment</span>
@@ -691,10 +725,96 @@ export default function WeddingInvitation() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Our Story */}
-      <section className="story-section" id="story">
+      <Box component="section" className="story-section" id="story">
+      <Container size="xl">
+        {/* Heading */}
+        <div className="section-heading" data-aos="fade-up">
+          <span className="eyebrow">How It Began</span>
+          <h2 className="section-title">Our Story</h2>
+          <div className="gold-divider" />
+        </div>
+
+        <Grid className="story-grid">
+          {/* Chapter I */}
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Stack gap="md" data-aos="fade-up" data-aos-delay="100">
+              <Text className="story-chapter">Chapter I</Text>
+
+              <Title order={3} className="story-title">
+                The Coffee House Encounter
+              </Title>
+
+              <Text className="story-text">
+                It started with a shared table in a rain-soaked Edinburgh café,
+                one October afternoon when every other seat was taken. Arlo had
+                a book he wasn't reading. Jane had notes she wasn't writing.
+                Neither remembers who spoke first — only that they talked until
+                the windows went dark and the barista swept around their chairs
+                twice.
+              </Text>
+
+              <Box className="story-quote">
+                <Text>
+                  "I didn't believe in coincidence before that afternoon."
+                </Text>
+              </Box>
+            </Stack>
+          </Grid.Col>
+
+          {/* Image AOS zoom */}
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Box
+              className="story-image-placeholder"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+            >
+              A &amp; J
+            </Box>
+          </Grid.Col>
+
+          {/* Image 2 */}
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Box
+              className="story-image-placeholder story-image-wide"
+              data-aos="zoom-in"
+              data-aos-delay="100"
+            >
+              2021
+            </Box>
+          </Grid.Col>
+
+          {/* Chapter II */}
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Stack gap="md" data-aos="fade-up" data-aos-delay="200">
+              <Text className="story-chapter">Chapter II</Text>
+
+              <Title order={3} className="story-title">
+                Three Continents Later
+              </Title>
+
+              <Text className="story-text">
+                Kyoto in cherry blossom season. A rooftop in Lisbon. The
+                southern tip of Patagonia in the driving rain. In each place
+                they discovered something new — about the world and, more
+                importantly, about each other. By the time Arlo proposed on a
+                ferry crossing the Bosphorus, Jane had already known her answer
+                for two years.
+              </Text>
+
+              <Text className="story-text story-text-spaced">
+                Now, after seven years, four time zones, and one very patient
+                cat named Ottoline, they are ready to call the adventure
+                something official.
+              </Text>
+            </Stack>
+          </Grid.Col>
+        </Grid>
+      </Container>
+    </Box>
+      {/* <section className="story-section" id="story">
         <div className="container">
           <div className="section-heading" data-aos="fade-up">
             <span className="eyebrow">How It Began</span>
@@ -732,7 +852,7 @@ export default function WeddingInvitation() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* The Celebration */}
       <section className="celebration-section" id="celebration">
