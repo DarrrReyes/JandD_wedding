@@ -140,16 +140,25 @@ nav.scrolled {
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
+
+/* =========================
+   LOGO
+========================= */
+
 .nav-logo {
   font-family: 'Great Vibes', cursive;
   font-size: 28px;
   color: var(--gold);
 }
 
+
+/* =========================
+   DESKTOP LINKS
+========================= */
+
 .nav-links {
   display: flex;
   gap: 32px;
-  list-style: none;
 }
 
 .nav-links a {
@@ -167,6 +176,151 @@ nav.scrolled {
 .nav-links a:hover {
   opacity: 1;
   color: var(--gold);
+}
+
+@media (max-width: 768px) {
+
+  nav {
+    padding: 16px 20px;
+  }
+
+  /* keep logo centered visually balanced */
+  .nav-logo {
+    font-size: 24px;
+  }
+
+  /* hide desktop links (already handled, but safe) */
+  .nav-links {
+    display: none !important;
+  }
+
+  /* improve burger alignment */
+  .mantine-Burger-root {
+    z-index: 200;
+    color: var(--gold);
+  }
+
+  /* optional: reduce nav background intensity on mobile */
+  nav {
+    background: linear-gradient(
+      to bottom,
+      rgba(11, 26, 47, 0.98),
+      rgba(11, 26, 47, 0.6)
+    );
+  }
+}
+
+
+/* =========================
+   MANTINE DRAWER OVERRIDE
+   (GLOBAL MOBILE NAV STYLE)
+========================= */
+
+/* Drawer panel (main container) */
+.mantine-Drawer-content {
+  background: rgba(11, 26, 47, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border-left: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Drawer body spacing */
+.mantine-Drawer-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+
+/* =========================
+   MOBILE NAV INSIDE DRAWER
+========================= */
+
+.mantine-Drawer-body a {
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  color: #fff;
+  text-decoration: none;
+
+  opacity: 0.8;
+  transition: all 0.25s ease;
+
+  text-align: center;
+}
+
+.mantine-Drawer-body a:hover {
+  opacity: 1;
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+
+/* Stack spacing (if using Mantine Stack) */
+.mantine-Stack-root {
+  gap: 28px !important;
+}
+
+
+/* =========================
+   BURGER (optional polish)
+========================= */
+
+.mantine-Burger-root {
+  color: var(--gold);
+}
+
+
+@media (max-width: 768px) {
+
+  /* Make drawer feel full-screen + immersive */
+  .app-drawer-content {
+    width: 100% !important;
+    padding: 24px;
+  }
+
+  /* Center menu vertically with better spacing */
+  .app-drawer-body {
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  /* Bigger tap targets (important for mobile UX) */
+  .app-drawer-body a {
+    font-size: 16px;
+    letter-spacing: 5px;
+    padding: 10px 0;
+  }
+
+  /* Stack spacing override (Mantine Stack) */
+  .app-drawer-body .mantine-Stack-root {
+    gap: 36px !important;
+  }
+
+  /* Optional: make close button easier to tap */
+  .mantine-Drawer-close {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+
+/* =========================
+   VERY SMALL SCREENS
+========================= */
+
+@media (max-width: 480px) {
+
+  .app-drawer-body a {
+    font-size: 15px;
+    letter-spacing: 4px;
+  }
+
+  .app-drawer-body .mantine-Stack-root {
+    gap: 28px !important;
+  }
 }
 
 /* =========================
@@ -455,8 +609,6 @@ nav.scrolled {
 
 
 
-
-
 /* Story Section */
 
 .story-section {
@@ -551,5 +703,582 @@ nav.scrolled {
 
   .story-quote {
     padding: 20px;
+  }
+}
+
+
+ /* Celebration Section */
+
+.celebration-section {
+  background: linear-gradient(180deg, #0a1526 0%, #0d1f38 100%);
+  padding: 120px 0;
+}
+
+.celebration-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 64px;
+}
+
+.celebration-card {
+  position: relative;
+  padding: 48px 40px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.celebration-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+}
+
+.card-type {
+  margin: 0 0 24px;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.card-venue {
+  margin: 0 0 20px;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.card-details {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-detail {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.card-detail-dot {
+  width: 4px;
+  height: 4px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.card-footer {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.card-description {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================
+   Tablet
+========================== */
+
+@media (max-width: 992px) {
+  .celebration-grid {
+    gap: 24px;
+  }
+
+  .celebration-card {
+    padding: 40px 32px;
+  }
+}
+
+/* ==========================
+   Mobile
+========================== */
+
+@media (max-width: 768px) {
+  .celebration-section {
+    padding: 80px 0;
+  }
+
+  .celebration-grid {
+    grid-template-columns: 1fr;
+    margin-top: 48px;
+  }
+
+  .celebration-card {
+    padding: 32px 24px;
+  }
+
+  .celebration-card::before {
+    left: 24px;
+    right: 24px;
+  }
+
+  .card-venue {
+    font-size: clamp(24px, 8vw, 32px);
+  }
+}
+
+
+/* Gallery Section */
+.gallery-section {
+  background: var(--midnight);
+  padding: 120px 0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 64px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.gallery-item:first-child {
+  grid-row: span 2;
+}
+
+.gallery-placeholder {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    135deg,
+    #132440 0%,
+    #1a3560 100%
+  );
+
+  border: 1px solid rgba(212, 175, 55, 0.08);
+  transition:
+    transform 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.gallery-item:first-child .gallery-placeholder {
+  min-height: 520px;
+}
+
+.gallery-item:not(:first-child) .gallery-placeholder {
+  min-height: 248px;
+}
+
+.gallery-label {
+  padding: 16px;
+  text-align: center;
+
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  line-height: 1.2;
+
+  color: rgba(212, 175, 55, 0.35);
+
+  transition: color 0.4s ease;
+}
+
+.gallery-item:hover .gallery-placeholder {
+  transform: scale(1.02);
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+.gallery-item:hover .gallery-label {
+  color: rgba(212, 175, 55, 0.6);
+}
+
+/* ==========================================
+   Tablet
+========================================== */
+
+@media (max-width: 992px) {
+  .gallery-section {
+    padding: 100px 0;
+  }
+
+  .gallery-item:first-child .gallery-placeholder {
+    min-height: 420px;
+  }
+
+  .gallery-item:not(:first-child) .gallery-placeholder {
+    min-height: 220px;
+  }
+}
+
+/* ==========================================
+   Mobile
+========================================== */
+
+@media (max-width: 768px) {
+  .gallery-section {
+    padding: 80px 0;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    margin-top: 48px;
+  }
+
+  .gallery-item:first-child {
+    grid-row: auto;
+  }
+
+  .gallery-item:first-child .gallery-placeholder,
+  .gallery-item:not(:first-child) .gallery-placeholder {
+    min-height: 280px;
+  }
+
+  .gallery-label {
+    font-size: 24px;
+  }
+}
+
+
+/* RSVP */
+.rsvp-section {
+  background: linear-gradient(
+    135deg,
+    #0a1526 0%,
+    #0e2040 100%
+  );
+  padding: 120px 0;
+}
+
+.rsvp-card {
+  max-width: 640px;
+  margin: 64px auto 0;
+  padding: 56px 48px;
+
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 12px;
+
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.form-input,
+.form-textarea {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.form-input input,
+.form-textarea textarea {
+  width: 100%;
+
+  padding: 12px 0;
+
+  color: white;
+  background: transparent;
+
+  font-family: 'Noto Serif', serif;
+  font-size: 15px;
+}
+
+.form-input input::placeholder,
+.form-textarea textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.form-input:focus-within,
+.form-textarea:focus-within {
+  border-bottom-color: var(--gold);
+}
+
+.radio-group {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.radio-group .mantine-Radio-label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+}
+
+.radio-group .mantine-Radio-radio {
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.rsvp-btn {
+  width: 100%;
+  height: 56px;
+
+  border: none;
+
+  background: linear-gradient(
+    135deg,
+    var(--gold-dark),
+    var(--gold),
+    var(--gold-light)
+  );
+
+  color: var(--midnight);
+
+  font-family: 'Noto Serif', serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+
+.rsvp-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.rsvp-btn:active {
+  transform: translateY(0);
+}
+
+.rsvp-thank-you {
+  font-size: clamp(32px, 4vw, 40px);
+}
+
+.rsvp-message {
+  max-width: 420px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   Mobile
+========================================== */
+
+@media (max-width: 768px) {
+  .rsvp-section {
+    padding: 80px 0;
+  }
+
+  .rsvp-card {
+    margin-top: 48px;
+    padding: 32px 24px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+
+
+/* FOOTER BASE */
+.wedding-footer {
+  background: #080f1c;
+  padding: 64px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.gold-divider {
+  width: min(120px, 40vw);
+  height: 1px;
+  margin-inline: auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+} 
+
+.footer-divider {
+  margin-bottom: 48px;
+}
+
+/* =======================
+   NAME
+======================= */
+.footer-names {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(36px, 6vw, 52px);
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+/* =======================
+   DATE
+======================= */
+.footer-date {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 40px;
+}
+
+/* =======================
+   LINKS
+======================= */
+.footer-links {
+  margin-bottom: 48px;
+}
+
+.footer-links a {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+/* Mobile layout */
+@media (max-width: 480px) {
+  .footer-links {
+    flex-direction: column;
+    gap: 14px;
+  }
+}
+
+/* =======================
+   THANK YOU TEXT
+======================= */
+.footer-thanks {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(14px, 2.5vw, 16px);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* =======================
+   COPYRIGHT
+======================= */
+.footer-copyright {
+  margin-top: 48px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+
+.section-heading {
+  text-align: center;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: 300;
+  font-style: italic;
+  color: #fff;
+  margin: 16px 0;
+  line-height: 1.2;
+}
+
+
+/* =========================
+   GLOBAL LAYOUT HELPERS
+   (optional but useful)
+========================= */
+
+section {
+  padding: 96px 0;
+}
+
+
+/* =========================
+   GLOBAL RESPONSIVE RULES
+========================= */
+
+@media (max-width: 768px) {
+  nav {
+    padding: 16px 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  section {
+    padding: 72px 0;
+  }
+
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .celebration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-item:nth-child(1) {
+    grid-row: span 1;
+  }
+
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rsvp-card {
+    padding: 40px 24px;
+  }
+
+  .celebration-card {
+    padding: 36px 28px;
+  }
+}
+
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
