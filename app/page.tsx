@@ -326,6 +326,7 @@ export default function WeddingInvitation() {
             </Title>
 
             <div className="gold-divider" />
+            {/* <Box className="gold-divider footer-divider" /> */}
           </Box>
 
           <SimpleGrid
@@ -753,3 +754,71 @@ export default function WeddingInvitation() {
     </>
   );
 }
+
+
+
+//REVIEW 
+
+// CountdownItem.tsx
+
+// countdownData.ts
+
+// export const countdownData = [
+//   { key: "days", label: "Days" },
+//   { key: "hours", label: "Hours" },
+//   { key: "minutes", label: "Minutes" },
+//   { key: "seconds", label: "Seconds" },
+// ] as const;
+
+// export type CountdownKey = (typeof countdownData)[number]["key"];
+// --------
+
+// import { Box, Text } from "@mantine/core";
+
+// interface CountdownItemProps {
+//   value: number;
+//   label: string;
+// }
+
+// export function CountdownItem({
+//   value,
+//   label,
+// }: CountdownItemProps) {
+//   return (
+//     <Box className="countdown-item">
+//       <Text component="span" className="countdown-number">
+//         {String(value).padStart(2, "0")}
+//       </Text>
+
+//       <Text component="span" className="countdown-label">
+//         {label}
+//       </Text>
+//     </Box>
+//   );
+// }
+
+
+// ------
+
+
+// const countdownItems = [
+//   { value: days, label: "Days" },
+//   { value: hours, label: "Hours" },
+//   { value: minutes, label: "Minutes" },
+//   { value: seconds, label: "Seconds" },
+// ];
+
+// <SimpleGrid
+//   cols={{ base: 2, sm: 4 }}
+//   spacing={1}
+//   className="countdown-grid"
+//   data-aos="fade-up"
+//   data-aos-delay="200"
+// >
+//   {countdownItems.map((item) => (
+//     <CountdownItem
+//       key={item.label}
+//       {...item}
+//     />
+//   ))}
+// </SimpleGrid>;
