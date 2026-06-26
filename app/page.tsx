@@ -1,17 +1,40 @@
-'use client'
-import { Anchor, Box, Burger, Button, Container, Drawer, Grid, Group, Radio, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+"use client";
+import {
+  Anchor,
+  Box,
+  Burger,
+  Button,
+  Container,
+  Drawer,
+  Grid,
+  Group,
+  Radio,
+  SimpleGrid,
+  Stack,
+  Text,
+  Textarea,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { useState, useEffect, useRef } from "react";
-import { useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery } from "@mantine/hooks";
 import dayjs from "dayjs";
-import { useForm } from '@mantine/form';
-import { yupResolver } from 'mantine-form-yup-resolver';
-import * as yup from 'yup';
+import { useForm } from "@mantine/form";
+import { yupResolver } from "mantine-form-yup-resolver";
+import { CelebrationCard } from "./components/CelebrationCard/CelebrationCard";
+import Footer from "./components/Footer/Footer";
+import { DressCode } from "./components/DressCode/DressCode";
+import { RSVPFormValues, schemaRSVP } from "./schema/ISchemaRSVP";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
-
 function useCountdown(targetDate) {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
   useEffect(() => {
     const tick = () => {
       const now = new Date();
@@ -57,8 +80,8 @@ function useScrollNav() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return scrolled;
 }
@@ -82,31 +105,19 @@ export default function WeddingInvitation() {
   // ------------------ NEW
   const [opened, setOpened] = useState(false);
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery("(max-width: 768px)");
   // ✅ ONLY ONE declaration
   const [scrollY, setScrollY] = useState(0);
-
-  const schema = yup.object({
-    name: yup.string().required('Full name is required'),
-    attendance: yup
-      .string()
-      .oneOf(['attending', 'declining'])
-      .required(),
-    dietary: yup.string(),
-  });
-
-  type RSVPFormValues = yup.InferType<typeof schema>;
-
 
   const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<RSVPFormValues>({
     initialValues: {
-      name: '',
-      attendance: 'attending',
-      dietary: '',
+      name: "",
+      attendance: "attending",
+      dietary: "",
     },
-    validate: yupResolver(schema),
+    validate: yupResolver(schemaRSVP),
   });
 
   const handleSubmit = form.onSubmit((values) => {
@@ -118,11 +129,63 @@ export default function WeddingInvitation() {
   });
 
   const galleryItems = [
-    { label: 'Edinburgh, 2017' },
-    { label: 'Kyoto, 2019' },
-    { label: 'Lisbon, 2021' },
-    { label: 'Patagonia, 2022' },
-    { label: 'The Proposal, 2023' },
+    { label: "Edinburgh, 2017" },
+    { label: "Kyoto, 2019" },
+    { label: "Lisbon, 2021" },
+    { label: "Patagonia, 2022" },
+    { label: "The Proposal, 2023" },
+  ];
+
+  // celebrationData
+  const celebrationData = [
+    {
+      type: "Ceremony",
+      venue: "St. Dunstan-in-the-East",
+      details: [
+        "Fleet Street, London EC4A 2HR",
+        "Doors open at 3:00 PM",
+        "Ceremony begins 4:00 PM sharp",
+      ],
+      description:
+        "A beloved church of literary London, where Samuel Pepys married — the perfect setting for a story of its own.",
+      aosDelay: 100,
+    },
+    {
+      type: "Reception",
+      venue: "The Grand Orangery",
+      details: [
+        "Kensington Palace Gardens, W8",
+        "Cocktails from 5:30 PM",
+        "Dinner & dancing from 7:00 PM",
+        "Evening ends at midnight",
+      ],
+      description:
+        "Carriages will be arranged for guests at midnight. Accommodation is available at The Milestone Hotel opposite the Gardens.",
+      aosDelay: 200,
+    },
+  ];
+
+  const dressSwatches = [
+    {
+      label: "Champagne",
+      color: "#E7D3B0",
+      delay: 100,
+    },
+    {
+      label: "Sage",
+      color: "#A8B69A",
+      delay: 200,
+    },
+    {
+      label: "Dusty Rose",
+      color: "#C9A3A3",
+      delay: 300,
+    },
+    {
+      label: "Slate",
+      color: "#7D8796",
+      delay: 400,
+    },
   ];
 
   useEffect(() => {
@@ -131,16 +194,14 @@ export default function WeddingInvitation() {
       setScrollY(window.scrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobile]);
 
   return (
     <>
-      {/* <style dangerouslySetInnerHTML={{ __html: globalStyles }} /> */}
-
       {/* Nav */}
-      <nav className={scrolled ? 'scrolled' : ''}>
+      <nav className={scrolled ? "scrolled" : ""}>
         <Text className={"nav-logo"}>A & J</Text>
 
         <Group visibleFrom="md" className="nav-links">
@@ -155,13 +216,6 @@ export default function WeddingInvitation() {
           opened={opened}
           onClick={() => setOpened((o) => !o)}
         />
-        {/* <span className="nav-logo">A & J</span>
-        <ul className="nav-links">
-          <li><a href="#story">Our Story</a></li>
-          <li><a href="#celebration">Details</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#rsvp">RSVP</a></li>
-        </ul> */}
       </nav>
 
       <Drawer
@@ -174,11 +228,19 @@ export default function WeddingInvitation() {
           body: "app-drawer-body",
         }}
       >
-        <Stack gap="xl" >
-          <Anchor href="#story" onClick={() => setOpened(false)}>Our Story</Anchor>
-          <Anchor href="#celebration" onClick={() => setOpened(false)}>Details</Anchor>
-          <Anchor href="#gallery" onClick={() => setOpened(false)}>Gallery</Anchor>
-          <Anchor href="#rsvp" onClick={() => setOpened(false)}>RSVP</Anchor>
+        <Stack gap="xl">
+          <Anchor href="#story" onClick={() => setOpened(false)}>
+            Our Story
+          </Anchor>
+          <Anchor href="#celebration" onClick={() => setOpened(false)}>
+            Details
+          </Anchor>
+          <Anchor href="#gallery" onClick={() => setOpened(false)}>
+            Gallery
+          </Anchor>
+          <Anchor href="#rsvp" onClick={() => setOpened(false)}>
+            RSVP
+          </Anchor>
         </Stack>
       </Drawer>
 
@@ -193,7 +255,7 @@ export default function WeddingInvitation() {
           style={{
             transform: `translateY(${scrollY * 0.2}px)`,
             backgroundImage:
-              'url(https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2000&q=80)',
+              "url(https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2000&q=80)",
           }}
         />
 
@@ -331,12 +393,12 @@ export default function WeddingInvitation() {
                 </Title>
 
                 <Text className="story-text">
-                  It started with a shared table in a rain-soaked Edinburgh café,
-                  one October afternoon when every other seat was taken. Arlo had
-                  a book he wasn't reading. Jane had notes she wasn't writing.
-                  Neither remembers who spoke first — only that they talked until
-                  the windows went dark and the barista swept around their chairs
-                  twice.
+                  It started with a shared table in a rain-soaked Edinburgh
+                  café, one October afternoon when every other seat was taken.
+                  Arlo had a book he wasn't reading. Jane had notes she wasn't
+                  writing. Neither remembers who spoke first — only that they
+                  talked until the windows went dark and the barista swept
+                  around their chairs twice.
                 </Text>
 
                 <Box className="story-quote">
@@ -383,8 +445,8 @@ export default function WeddingInvitation() {
                   southern tip of Patagonia in the driving rain. In each place
                   they discovered something new — about the world and, more
                   importantly, about each other. By the time Arlo proposed on a
-                  ferry crossing the Bosphorus, Jane had already known her answer
-                  for two years.
+                  ferry crossing the Bosphorus, Jane had already known her
+                  answer for two years.
                 </Text>
 
                 <Text className="story-text story-text-spaced">
@@ -440,161 +502,41 @@ export default function WeddingInvitation() {
       {/* The Celebration */}
       <Box component="section" className="celebration-section" id="celebration">
         <Container size="lg">
-          <div className="section-heading" data-aos="fade-up">
-            <span className="eyebrow">24th October 2024</span>
+          <Stack className="section-heading" gap="xs" data-aos="fade-up">
+            <Text component="span" className="eyebrow">
+              24th October 2024
+            </Text>
 
             <Title order={2} className="section-title">
               The Celebration
             </Title>
 
-            <div className="gold-divider" />
-          </div>
+            <Box className="gold-divider" />
+          </Stack>
 
-          <div className="celebration-grid">
-            <div
-              className="celebration-card"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <Text className="card-type">Ceremony</Text>
+          <Box className="celebration-grid">
+            {celebrationData.map((item) => (
+              <CelebrationCard key={item.type} {...item} />
+            ))}
+          </Box>
 
-              <Title order={3} className="card-venue">
-                St. Dunstan-in-the-West
-              </Title>
-
-              <div className="card-details">
-                <Text className="card-detail">
-                  <span className="card-detail-dot" />
-                  Fleet Street, London EC4A 2HR
-                </Text>
-
-                <Text className="card-detail">
-                  <span className="card-detail-dot" />
-                  Doors open at 3:00 PM
-                </Text>
-
-                <Text className="card-detail">
-                  <span className="card-detail-dot" />
-                  Ceremony begins 4:00 PM sharp
-                </Text>
-              </div>
-
-              <div className="card-footer">
-                <Text className="card-description">
-                  A beloved church of literary London, where Samuel Pepys married —
-                  the perfect setting for a story of its own.
-                </Text>
-              </div>
-            </div>
-
-            <div
-              className="celebration-card"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <Text className="card-type">Reception</Text>
-
-              <Title order={3} className="card-venue">
-                The Grand Orangery
-              </Title>
-
-              <div className="card-details">
-                <Text className="card-detail">
-                  <span className="card-detail-dot" />
-                  Kensington Palace Gardens, W8
-                </Text>
-
-                <Text className="card-detail">
-                  <span className="card-detail-dot" />
-                  Cocktails from 5:30 PM
-                </Text>
-
-                <Text className="card-detail">
-                  <span className="card-detail-dot" />
-                  Dinner &amp; dancing from 7:00 PM
-                </Text>
-
-                <Text className="card-detail">
-                  <span className="card-detail-dot" />
-                  Evening ends at midnight
-                </Text>
-              </div>
-
-              <div className="card-footer">
-                <Text className="card-description">
-                  Carriages will be arranged for guests at midnight. Accommodation is
-                  available at The Milestone Hotel opposite the Gardens.
-                </Text>
-              </div>
-            </div>
-          </div>
+          <Box className="dress-swatches">
+            {dressSwatches.map((swatch) => (
+              <DressCode key={swatch.label} {...swatch} />
+            ))}
+          </Box>
         </Container>
       </Box>
-      {/* <section className="celebration-section" id="celebration">
-        <div className="container">
-          <div className="section-heading" data-aos="fade-up">
-            <span className="eyebrow">24th October 2024</span>
-            <h2 className="section-title">The Celebration</h2>
-            <div className="gold-divider" />
-          </div>
-
-          <div className="celebration-grid">
-            <div className="celebration-card" data-aos="fade-up" data-aos-delay="100">
-              <p className="card-type">Ceremony</p>
-              <h3 className="card-venue">St. Dunstan-in-the-West</h3>
-              <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <p className="card-detail"><span className="card-detail-dot" /> Fleet Street, London EC4A 2HR</p>
-                <p className="card-detail"><span className="card-detail-dot" /> Doors open at 3:00 PM</p>
-                <p className="card-detail"><span className="card-detail-dot" /> Ceremony begins 4:00 PM sharp</p>
-              </div>
-              <div style={{ marginTop: '32px', paddingTop: '32px', borderTop: `1px solid ${GOLD}20` }}>
-                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
-                  A beloved church of literary London, where Samuel Pepys married — the perfect setting for a story of its own.
-                </p>
-              </div>
-            </div>
-
-            <div className="celebration-card" data-aos="fade-up" data-aos-delay="200">
-              <p className="card-type">Reception</p>
-              <h3 className="card-venue">The Grand Orangery</h3>
-              <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <p className="card-detail"><span className="card-detail-dot" /> Kensington Palace Gardens, W8</p>
-                <p className="card-detail"><span className="card-detail-dot" /> Cocktails from 5:30 PM</p>
-                <p className="card-detail"><span className="card-detail-dot" /> Dinner & dancing from 7:00 PM</p>
-                <p className="card-detail"><span className="card-detail-dot" /> Evening ends at midnight</p>
-              </div>
-              <div style={{ marginTop: '32px', paddingTop: '32px', borderTop: `1px solid ${GOLD}20` }}>
-                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
-                  Carriages will be arranged for guests at midnight. Accommodation is available at The Milestone Hotel opposite the Gardens.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          Dress Code
-          <div className="dress-code-section" data-aos="fade-up" data-aos-delay="100">
-            <div style={{ height: '1px', background: `linear-gradient(90deg, transparent, ${GOLD}33, transparent)`, margin: '64px 0' }} />
-            <span className="eyebrow">Attire</span>
-            <h3 className="section-title" style={{ fontSize: 'clamp(28px, 4vw, 44px)', marginBottom: '8px' }}>Black Tie</h3>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', marginBottom: '40px', letterSpacing: '1px' }}>
-              We invite you to dress in the spirit of the evening — refined, elegant, and celebratory.
-            </p>
-            <div className="dress-swatches">
-              {SWATCHES.map(({ color, label }) => (
-                <div className="swatch" key={label}>
-                  <div className="swatch-color" style={{ background: color }} />
-                  <span className="swatch-label">{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* Gallery */}
       <Box component="section" id="gallery" className="gallery-section">
         <Container size="lg">
-          <Stack align="center" gap={0} className="section-heading" data-aos="fade-up">
+          <Stack
+            align="center"
+            gap={0}
+            className="section-heading"
+            data-aos="fade-up"
+          >
             <Text component="span" className="eyebrow">
               A Few Favourite Frames
             </Text>
@@ -611,7 +553,7 @@ export default function WeddingInvitation() {
               <Box
                 key={label}
                 className="gallery-item"
-                data-aos={i === 0 ? 'fade-up' : 'zoom-in'}
+                data-aos={i === 0 ? "fade-up" : "zoom-in"}
                 data-aos-delay={i * 80}
               >
                 <Box className="gallery-placeholder">
@@ -622,31 +564,6 @@ export default function WeddingInvitation() {
           </Box>
         </Container>
       </Box>
-      {/* <section className="gallery-section" id="gallery">
-        <div className="container">
-          <div className="section-heading" data-aos="fade-up">
-            <span className="eyebrow">A Few Favourite Frames</span>
-            <h2 className="section-title">Moments</h2>
-            <div className="gold-divider" />
-          </div>
-
-          <div className="gallery-grid">
-            {[
-              { label: 'Edinburgh, 2017', tall: true },
-              { label: 'Kyoto, 2019' },
-              { label: 'Lisbon, 2021' },
-              { label: 'Patagonia, 2022' },
-              { label: 'The Proposal, 2023' },
-            ].map(({ label }, i) => (
-              <div className="gallery-item" key={label} data-aos={i === 0 ? 'fade-up' : 'zoom-in'} data-aos-delay={i * 80}>
-                <div className="gallery-placeholder">
-                  <span style={{ textAlign: 'center', padding: '16px' }}>{label}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* RSVP */}
       <Box component="section" id="rsvp" className="rsvp-section">
@@ -668,11 +585,7 @@ export default function WeddingInvitation() {
             <Box className="gold-divider" />
           </Stack>
 
-          <Box
-            className="rsvp-card"
-            data-aos="fade-up"
-            data-aos-delay="150"
-          >
+          <Box className="rsvp-card" data-aos="fade-up" data-aos-delay="150">
             {submitted ? (
               <Stack align="center" py={40}>
                 <Box className="gold-divider" />
@@ -682,8 +595,8 @@ export default function WeddingInvitation() {
                 </Title>
 
                 <Text className="rsvp-message">
-                  We have received your response and can't wait to celebrate with
-                  you.
+                  We have received your response and can't wait to celebrate
+                  with you.
                 </Text>
 
                 <Box className="gold-divider" />
@@ -705,18 +618,14 @@ export default function WeddingInvitation() {
                       variant="unstyled"
                       className="form-input"
                       placeholder="Your name as it appears on your invitation"
-                      {...form.getInputProps('name')}
+                      {...form.getInputProps("name")}
                     />
                   </Box>
 
                   <Box>
-                    <Text className="form-label">
-                      Will you be joining us?
-                    </Text>
+                    <Text className="form-label">Will you be joining us?</Text>
 
-                    <Radio.Group
-                      {...form.getInputProps('attendance')}
-                    >
+                    <Radio.Group {...form.getInputProps("attendance")}>
                       <Box className="radio-group">
                         <Radio
                           value="attending"
@@ -749,15 +658,11 @@ export default function WeddingInvitation() {
                       minRows={3}
                       className="form-textarea"
                       placeholder="Please note any allergies or dietary needs"
-                      {...form.getInputProps('dietary')}
+                      {...form.getInputProps("dietary")}
                     />
                   </Box>
 
-                  <Button
-                    type="submit"
-                    className="rsvp-btn"
-                    radius={0}
-                  >
+                  <Button type="submit" className="rsvp-btn" radius={0}>
                     Send My Reply
                   </Button>
                 </Stack>
@@ -844,56 +749,7 @@ export default function WeddingInvitation() {
       </section> */}
 
       {/* Footer */}
-      <Box
-        component="footer"
-        className="wedding-footer"
-        data-aos="fade-up"
-        data-aos-duration="1000"
-      >
-        <Container size="lg">
-          {/* <div className="gold-divider footer-divider" /> */}
-
-          <Text className="footer-names">Arlo & Jane</Text>
-
-          <Text className="footer-date">
-            24th October 2024 · London
-          </Text>
-
-          <Group
-            justify="center" wrap="wrap" gap="xl" className="footer-links"
-          >
-            <Anchor href="#story">Our Story</Anchor>
-            <Anchor href="#celebration">Details</Anchor>
-            <Anchor href="#gallery">Gallery</Anchor>
-            <Anchor href="#rsvp">RSVP</Anchor>
-          </Group>
-
-          <Stack gap={8} align="center">
-            <Text className="footer-thanks">
-              Thank you for being a part of our beginning.
-            </Text>
-
-            <Text className="footer-copyright">
-              Made with love · 2024
-            </Text>
-          </Stack>
-        </Container>
-      </Box>
-      {/* <footer>
-        <div className="gold-divider" style={{ marginBottom: '48px' }} />
-        <p className="footer-names">Arlo & Jane</p>
-        <p className="footer-date">24th October 2024 · London</p>
-        <div className="footer-links">
-          <a href="#story">Our Story</a>
-          <a href="#celebration">Details</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#rsvp">RSVP</a>
-        </div>
-        <p className="footer-thanks">Thank you for being a part of our beginning.</p>
-        <div style={{ marginTop: '48px', fontSize: '11px', color: 'rgba(255,255,255,0.15)', letterSpacing: '2px', textTransform: 'uppercase' }}>
-          Made with love · 2024
-        </div>
-      </footer> */}
+      <Footer />
     </>
   );
 }
