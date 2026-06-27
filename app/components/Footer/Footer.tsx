@@ -7,9 +7,9 @@ const Footer = () => {
       <Container size="lg" data-aos="fade-up" data-aos-duration="1000">
         <div className="gold-divider footer-divider" />
 
-        <Text className="footer-names">Arlo & Jane</Text>
+        <Text className="footer-names">Jasper & Daniella</Text>
 
-        <Text className="footer-date">24th October 2024 · London</Text>
+        <Text className="footer-date">1st December 2026</Text>
 
         <Group justify="center" wrap="wrap" gap="xl" className="footer-links">
           <Anchor href="#story">Our Story</Anchor>

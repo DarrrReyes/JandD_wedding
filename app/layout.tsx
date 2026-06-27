@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Great_Vibes } from "next/font/google";
 import { PropsWithChildren, ReactNode } from "react";
 import { AppProps } from "next/app";
 import { Flex, MantineProvider } from "@mantine/core";
@@ -21,6 +21,12 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-great-vibes",
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -37,7 +43,7 @@ export default function RootLayout({ children, ...props }: IRootLayout) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} h-full antialiased`}
     >
       <body>
         <MantineProvider theme={theme}>

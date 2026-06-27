@@ -25,6 +25,7 @@ import { CelebrationCard } from "./components/CelebrationCard/CelebrationCard";
 import Footer from "./components/Footer/Footer";
 import { DressCode } from "./components/DressCode/DressCode";
 import { RSVPFormValues, schemaRSVP } from "./schema/ISchemaRSVP";
+import { CountdownTime } from "./components/CountDownTime/CountDownTime";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -57,25 +58,6 @@ function useCountdown(targetDate) {
   return timeLeft;
 }
 
-// function useAOS() {
-//   useEffect(() => {
-//     const els = document.querySelectorAll('[data-aos]');
-//     const obs = new IntersectionObserver(
-//       (entries) => {
-//         entries.forEach(e => {
-//           if (e.isIntersecting) {
-//             const delay = parseInt(e.target.dataset.aosDelay || 0);
-//             setTimeout(() => e.target.classList.add('aos-animate'), delay);
-//           }
-//         });
-//       },
-//       { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-//     );
-//     els.forEach(el => obs.observe(el));
-//     return () => obs.disconnect();
-//   }, []);
-// }
-
 function useScrollNav() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -85,76 +67,45 @@ function useScrollNav() {
   }, []);
   return scrolled;
 }
-
-// function useParallax(speed = 0.45) {
-//   const [offset, setOffset] = useState(0);
-//   useEffect(() => {
-//     const onScroll = () => setOffset(window.scrollY * speed);
-//     window.addEventListener('scroll', onScroll, { passive: true });
-//     return () => window.removeEventListener('scroll', onScroll);
-//   }, [speed]);
-//   return offset;
-// }
-
-const pad = (n: number) => String(n).padStart(2, "0");
-
 export default function WeddingInvitation() {
-  const scrolled = useScrollNav();
-  const { days, hours, minutes, seconds } = useCountdown(WEDDING_DATE);
-
-  // ------------------ NEW
-  const [opened, setOpened] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
-  // ✅ ONLY ONE declaration
+
+  // Nav
+  const scrolled = useScrollNav();
+  const [opened, setOpened] = useState(false);
+  // Hero
   const [scrollY, setScrollY] = useState(0);
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const form = useForm<RSVPFormValues>({
-    initialValues: {
-      name: "",
-      attendance: "attending",
-      dietary: "",
-    },
-    validate: yupResolver(schemaRSVP),
-  });
-
-  const handleSubmit = form.onSubmit((values) => {
-    console.log(values);
-
-    // API call here
-
-    setSubmitted(true);
-  });
-
-  const galleryItems = [
-    { label: "Edinburgh, 2017" },
-    { label: "Kyoto, 2019" },
-    { label: "Lisbon, 2021" },
-    { label: "Patagonia, 2022" },
-    { label: "The Proposal, 2023" },
+  // CountDown
+  const { days, hours, minutes, seconds } = useCountdown(WEDDING_DATE);
+  const countdownItems = [
+    { value: days, label: "Days" },
+    { value: hours, label: "Hours" },
+    { value: minutes, label: "Minutes" },
+    { value: seconds, label: "Seconds" },
   ];
-
-  // celebrationData
+  // Story
+  // Celebration
   const celebrationData = [
     {
       type: "Ceremony",
-      venue: "St. Dunstan-in-the-East",
+      venue: "Sto. Niño Parish",
       details: [
-        "Fleet Street, London EC4A 2HR",
-        "Doors open at 3:00 PM",
-        "Ceremony begins 4:00 PM sharp",
+        "17 El Camino Real, Meycauayan, Bulacan",
+        "Doors open at 1:00 PM",
+        "Ceremony begins 2:00 PM",
+        "For members of the entourage, please be at the church 30 minutes before the ceremony"
       ],
       description:
-        "A beloved church of literary London, where Samuel Pepys married — the perfect setting for a story of its own.",
+        "A cherished parish in the heart of Meycauayan, where faith and love come together. The perfect place to begin a lifelong promise.",
       aosDelay: 100,
     },
     {
+
       type: "Reception",
-      venue: "The Grand Orangery",
+      venue: "Casa Miguel Events Place",
       details: [
-        "Kensington Palace Gardens, W8",
+        "Phase 1 Blk 9 Lot 16, Metrogate II Jao st, Marilao, Bulacan",
         "Cocktails from 5:30 PM",
         "Dinner & dancing from 7:00 PM",
         "Evening ends at midnight",
@@ -164,7 +115,7 @@ export default function WeddingInvitation() {
       aosDelay: 200,
     },
   ];
-
+  // DressCode
   const dressSwatches = [
     {
       label: "Champagne",
@@ -187,6 +138,34 @@ export default function WeddingInvitation() {
       delay: 400,
     },
   ];
+  // Gallery
+  const galleryItems = [
+    { label: "Edinburgh, 2017" },
+    { label: "Kyoto, 2019" },
+    { label: "Lisbon, 2021" },
+    { label: "Patagonia, 2022" },
+    { label: "The Proposal, 2023" },
+  ];
+  // RSVP
+  const [submitted, setSubmitted] = useState(false);
+
+  const form = useForm<RSVPFormValues>({
+    initialValues: {
+      name: "",
+      attendance: "attending",
+      dietary: "",
+    },
+    validate: yupResolver(schemaRSVP),
+  });
+
+  const handleSubmit = form.onSubmit((values) => {
+    console.log(values);
+
+    // API call here
+
+    setSubmitted(true);
+  });
+  // Footer
 
   useEffect(() => {
     const handleScroll = () => {
@@ -269,51 +248,32 @@ export default function WeddingInvitation() {
 
         {/* 📝 CONTENT */}
         <Container size="sm" className="hero-content">
-          <Text className="hero-eyebrow" ta="center">
+          {/* <Text className="hero-location" ta="center">
             Together with their families
-          </Text>
+          </Text> */}
 
           <Title order={1} className="hero-title" ta="center">
-            Arlo & Jane
+            Jasper & Daniella
           </Title>
 
-          <Box className="hero-divider" />
+          {/* <Text className="footer-thanks">
+            Join us as we celebrate love, laughter, and the beginning of our forever.
+          </Text> */}
+          <Box className="gold-divider" />
 
           <Text className="hero-date" ta="center">
-            October 24th, 2024
+            December 1st, 2026
           </Text>
 
           <Text className="hero-location" ta="center">
-            The Grand Orangery · Kensington, London
+            Join us as we celebrate love, laughter, and the beginning of our forever.
           </Text>
+          {/* <Text className="hero-location" ta="center">
+            El Camino Real · Meycauayan, Bulacan
+          </Text> */}
         </Container>
       </Box>
-      {/* <section className="hero" id="hero">
-        Parallax background layer
-        <div
-          className="hero-parallax-bg"
-          style={{ transform: `translateY(${parallaxOffset}px)` }}
-          aria-hidden="true"
-        />
-        Dot texture layer — moves slightly slower
-        <div
-          className="hero-parallax-dots"
-          style={{ transform: `translateY(${parallaxOffset * 0.6}px)` }}
-          aria-hidden="true"
-        />
-        Content stays fixed in normal flow
-        <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-          <span className="eyebrow" style={{ textAlign: 'center' }}>Together with their families</span>
-          <h1 className="hero-names">Arlo & Jane</h1>
-          <div className="gold-divider" style={{ margin: '24px auto' }} />
-          <p className="hero-date">October 24th, 2024</p>
-          <p className="hero-location">The Grand Orangery · Kensington, London</p>
-        </div>
-        <div className="scroll-indicator">
-          <div className="scroll-line" />
-          <span>Scroll</span>
-        </div>
-      </section> */}
+
 
       {/* Countdown */}
       <Box component="section" className="countdown-section">
@@ -325,8 +285,7 @@ export default function WeddingInvitation() {
               Until We Say I Do
             </Title>
 
-            <div className="gold-divider" />
-            {/* <Box className="gold-divider footer-divider" /> */}
+            <Box className="gold-divider footer-divider" />
           </Box>
 
           <SimpleGrid
@@ -336,42 +295,15 @@ export default function WeddingInvitation() {
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            {[
-              { value: days, label: "Days" },
-              { value: hours, label: "Hours" },
-              { value: minutes, label: "Minutes" },
-              { value: seconds, label: "Seconds" },
-            ].map(({ value, label }) => (
-              <Box key={label} className="countdown-item">
-                <span className="countdown-number">{pad(value)}</span>
-                <span className="countdown-label">{label}</span>
-              </Box>
+            {countdownItems.map((item) => (
+              <CountdownTime
+                key={item.label}
+                {...item}
+              />
             ))}
           </SimpleGrid>
         </Container>
       </Box>
-      {/* <div className="countdown-section">
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div data-aos="fade-up">
-            <span className="eyebrow">Counting Every Moment</span>
-            <h2 className="section-title">Until We Say I Do</h2>
-            <div className="gold-divider" />
-          </div>
-          <div className="countdown-grid" data-aos="fade-up" data-aos-delay="200">
-            {[
-              { value: days, label: 'Days' },
-              { value: hours, label: 'Hours' },
-              { value: minutes, label: 'Minutes' },
-              { value: seconds, label: 'Seconds' },
-            ].map(({ value, label }) => (
-              <div className="countdown-item" key={label}>
-                <span className="countdown-number">{pad(value)}</span>
-                <span className="countdown-label">{label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
 
       {/* Our Story */}
       <Box component="section" className="story-section" id="story">
@@ -505,7 +437,7 @@ export default function WeddingInvitation() {
         <Container size="lg">
           <Stack className="section-heading" gap="xs" data-aos="fade-up">
             <Text component="span" className="eyebrow">
-              24th October 2024
+              1st December 2026
             </Text>
 
             <Title order={2} className="section-title">
@@ -754,71 +686,3 @@ export default function WeddingInvitation() {
     </>
   );
 }
-
-
-
-//REVIEW 
-
-// CountdownItem.tsx
-
-// countdownData.ts
-
-// export const countdownData = [
-//   { key: "days", label: "Days" },
-//   { key: "hours", label: "Hours" },
-//   { key: "minutes", label: "Minutes" },
-//   { key: "seconds", label: "Seconds" },
-// ] as const;
-
-// export type CountdownKey = (typeof countdownData)[number]["key"];
-// --------
-
-// import { Box, Text } from "@mantine/core";
-
-// interface CountdownItemProps {
-//   value: number;
-//   label: string;
-// }
-
-// export function CountdownItem({
-//   value,
-//   label,
-// }: CountdownItemProps) {
-//   return (
-//     <Box className="countdown-item">
-//       <Text component="span" className="countdown-number">
-//         {String(value).padStart(2, "0")}
-//       </Text>
-
-//       <Text component="span" className="countdown-label">
-//         {label}
-//       </Text>
-//     </Box>
-//   );
-// }
-
-
-// ------
-
-
-// const countdownItems = [
-//   { value: days, label: "Days" },
-//   { value: hours, label: "Hours" },
-//   { value: minutes, label: "Minutes" },
-//   { value: seconds, label: "Seconds" },
-// ];
-
-// <SimpleGrid
-//   cols={{ base: 2, sm: 4 }}
-//   spacing={1}
-//   className="countdown-grid"
-//   data-aos="fade-up"
-//   data-aos-delay="200"
-// >
-//   {countdownItems.map((item) => (
-//     <CountdownItem
-//       key={item.label}
-//       {...item}
-//     />
-//   ))}
-// </SimpleGrid>;
