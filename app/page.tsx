@@ -111,7 +111,7 @@ export default function WeddingInvitation() {
         "Evening ends at midnight",
       ],
       description:
-        "Carriages will be arranged for guests at midnight. Accommodation is available at The Milestone Hotel opposite the Gardens.",
+        "A celebration of love and happiness awaits. Come share in an evening filled with laughter, music, and unforgettable memories.",
       aosDelay: 200,
     },
   ];
