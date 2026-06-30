@@ -26,6 +26,7 @@ import Footer from "./components/Footer/Footer";
 import { DressCode } from "./components/DressCode/DressCode";
 import { RSVPFormValues, schemaRSVP } from "./schema/ISchemaRSVP";
 import { CountdownTime } from "./components/CountDownTime/CountDownTime";
+import RSVPCard from "./components/RSVPCard/RSVPCard";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -68,7 +69,6 @@ function useScrollNav() {
   return scrolled;
 }
 export default function WeddingInvitation() {
-
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   // Nav
@@ -94,14 +94,13 @@ export default function WeddingInvitation() {
         "17 El Camino Real, Meycauayan, Bulacan",
         "Doors open at 1:00 PM",
         "Ceremony begins 2:00 PM",
-        "For members of the entourage, please be at the church 30 minutes before the ceremony"
+        "For members of the entourage, please be at the church 30 minutes before the ceremony",
       ],
       description:
         "A cherished parish in the heart of Meycauayan, where faith and love come together. The perfect place to begin a lifelong promise.",
       aosDelay: 100,
     },
     {
-
       type: "Reception",
       venue: "Casa Miguel Events Place",
       details: [
@@ -248,13 +247,9 @@ export default function WeddingInvitation() {
 
         {/* 📝 CONTENT */}
         <Container size="sm" className="hero-content">
-          {/* <Text className="hero-location" ta="center">
-            Together with their families
-          </Text> */}
-
-          <Title order={1} className="hero-title" ta="center">
+          <Text className="hero-title" ta="center">
             Jasper & Daniella
-          </Title>
+          </Text>
 
           {/* <Text className="footer-thanks">
             Join us as we celebrate love, laughter, and the beginning of our forever.
@@ -266,14 +261,14 @@ export default function WeddingInvitation() {
           </Text>
 
           <Text className="hero-location" ta="center">
-            Join us as we celebrate love, laughter, and the beginning of our forever.
+            Join us as we celebrate love, laughter, and the beginning of our
+            forever.
           </Text>
           {/* <Text className="hero-location" ta="center">
             El Camino Real · Meycauayan, Bulacan
           </Text> */}
         </Container>
       </Box>
-
 
       {/* Countdown */}
       <Box component="section" className="countdown-section">
@@ -296,10 +291,7 @@ export default function WeddingInvitation() {
             data-aos-delay="200"
           >
             {countdownItems.map((item) => (
-              <CountdownTime
-                key={item.label}
-                {...item}
-              />
+              <CountdownTime key={item.label} {...item} />
             ))}
           </SimpleGrid>
         </Container>
@@ -518,168 +510,13 @@ export default function WeddingInvitation() {
             <Box className="gold-divider" />
           </Stack>
 
-          <Box className="rsvp-card" data-aos="fade-up" data-aos-delay="150">
-            {submitted ? (
-              <Stack align="center" py={40}>
-                <Box className="gold-divider" />
-
-                <Title order={3} className="rsvp-thank-you">
-                  Thank You
-                </Title>
-
-                <Text className="rsvp-message">
-                  We have received your response and can't wait to celebrate
-                  with you.
-                </Text>
-
-                <Box className="gold-divider" />
-              </Stack>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <Stack gap={28}>
-                  <Box>
-                    <Text
-                      component="label"
-                      htmlFor="name"
-                      className="form-label"
-                    >
-                      Full Name
-                    </Text>
-
-                    <TextInput
-                      id="name"
-                      variant="unstyled"
-                      className="form-input"
-                      placeholder="Your name as it appears on your invitation"
-                      {...form.getInputProps("name")}
-                    />
-                  </Box>
-
-                  <Box>
-                    <Text className="form-label">Will you be joining us?</Text>
-
-                    <Radio.Group {...form.getInputProps("attendance")}>
-                      <Box className="radio-group">
-                        <Radio
-                          value="attending"
-                          label="Joyfully accepts"
-                          color="yellow"
-                        />
-
-                        <Radio
-                          value="declining"
-                          label="Regretfully declines"
-                          color="yellow"
-                        />
-                      </Box>
-                    </Radio.Group>
-                  </Box>
-
-                  <Box>
-                    <Text
-                      component="label"
-                      htmlFor="dietary"
-                      className="form-label"
-                    >
-                      Dietary Requirements
-                    </Text>
-
-                    <Textarea
-                      id="dietary"
-                      variant="unstyled"
-                      autosize
-                      minRows={3}
-                      className="form-textarea"
-                      placeholder="Please note any allergies or dietary needs"
-                      {...form.getInputProps("dietary")}
-                    />
-                  </Box>
-
-                  <Button type="submit" className="rsvp-btn" radius={0}>
-                    Send My Reply
-                  </Button>
-                </Stack>
-              </form>
-            )}
-          </Box>
+          <RSVPCard
+            submitted={submitted}
+            form={form}
+            handleSubmit={handleSubmit}
+          />
         </Container>
       </Box>
-      {/* <section className="rsvp-section" id="rsvp">
-        <div className="container">
-          <div className="section-heading" data-aos="fade-up">
-            <span className="eyebrow">Kindly Reply By September 1st</span>
-            <h2 className="section-title">RSVP</h2>
-            <div className="gold-divider" />
-          </div>
-
-          <div className="rsvp-card" data-aos="fade-up" data-aos-delay="150">
-            {submitted ? (
-              <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                <div className="gold-divider" style={{ marginBottom: '32px' }} />
-                <h3 className="section-title" style={{ fontSize: '40px', marginBottom: '16px' }}>Thank You</h3>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '15px', lineHeight: 1.8 }}>
-                  We have received your response and can't wait to celebrate with you.
-                </p>
-                <div className="gold-divider" style={{ marginTop: '32px' }} />
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="name">Full Name</label>
-                  <input
-                    id="name"
-                    className="form-input"
-                    type="text"
-                    placeholder="Your name as it appears on your invitation"
-                    value={formState.name}
-                    onChange={e => setFormState(s => ({ ...s, name: e.target.value }))}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Will you be joining us?</label>
-                  <div className="radio-group">
-                    {[
-                      { value: 'attending', label: 'Joyfully accepts' },
-                      { value: 'declining', label: 'Regretfully declines' },
-                    ].map(({ value, label }) => (
-                      <label className="radio-option" key={value}>
-                        <input
-                          type="radio"
-                          name="attendance"
-                          value={value}
-                          checked={formState.attendance === value}
-                          onChange={() => setFormState(s => ({ ...s, attendance: value }))}
-                        />
-                        <span className="radio-custom">
-                          <span className="radio-inner" />
-                        </span>
-                        <span className="radio-text">{label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="dietary">Dietary Requirements</label>
-                  <textarea
-                    id="dietary"
-                    className="form-textarea"
-                    placeholder="Please note any allergies or dietary needs"
-                    value={formState.dietary}
-                    onChange={e => setFormState(s => ({ ...s, dietary: e.target.value }))}
-                  />
-                </div>
-
-                <button type="submit" className="rsvp-btn">
-                  Send My Reply
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      </section> */}
 
       {/* Footer */}
       <Footer />
