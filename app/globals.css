@@ -288,10 +288,23 @@ nav.scrolled {
     gap: 36px !important;
   }
 
+  .mantine-Drawer-header {
+    background: transparent !important;
+  }
   /* Optional: make close button easier to tap */
   .mantine-Drawer-close {
     width: 44px;
     height: 44px;
+    background: transparent !important;
+    color: var(--gold);
+  }
+
+  .app-drawer-close svg {
+    stroke: var(--gold);
+  }
+  .app-drawer-close:hover {
+    background: transparent !important;
+    opacity: 0.8;
   }
 }
 
@@ -387,7 +400,7 @@ nav.scrolled {
 .hero-title {
   font-family: var(--font-great-vibes);
   /* !important */
-  font-size: clamp(72px, 14vw, 140px);
+  font-size: clamp(72px, 14vw, 80px) !important;
   line-height: 1;
 }
 
@@ -397,7 +410,7 @@ nav.scrolled {
   letter-spacing: 8px;
   text-transform: uppercase;
   color: var(--gold);
-  margin: 20px 0;
+  margin: 20px 10px;
   font-weight: 300;
 }
 
@@ -491,7 +504,7 @@ nav.scrolled {
 
   .hero-names,
   .hero-title {
-    font-size: clamp(48px, 10vw, 90px);
+    font-size: clamp(72px, 14vw, 70px) !important;
   }
 
   .hero-date {
@@ -823,12 +836,18 @@ nav.scrolled {
 }
 
 /* DRESS CODE */
-.dress-swatches {
+/* .dress-swatches {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  margin-top: 32px;
+} */
+.dress-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
   margin-top: 32px;
 }
 
@@ -868,16 +887,25 @@ nav.scrolled {
 
 @media (max-width: 992px) {
   .dress-swatches {
-    gap: 20px;
-    margin-top: 28px;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
   }
 
-  .swatch-color {
-    width: 52px;
-    height: 52px;
+  .swatch {
+    align-items: center;
+    margin-top: 48px;
   }
 
-  .swatch-label {
+  .swatch-colors {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .swatch-title {
     font-size: 9px;
     letter-spacing: 1.8px;
   }
@@ -888,13 +916,19 @@ nav.scrolled {
 =========================== */
 
 @media (max-width: 768px) {
-  .dress-swatches {
+  /* .dress-swatches {
     gap: 18px;
     margin-top: 24px;
+  } */
+  .dress-swatches {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
   }
 
   .swatch {
-    width: 72px;
+    grid-template-columns: 1fr;
+    margin-top: 48px;
+    /* width: 72px; */
   }
 
   .swatch-color {
@@ -902,7 +936,7 @@ nav.scrolled {
     height: 48px;
   }
 
-  .swatch-label {
+  .swatch-title {
     font-size: 9px;
     letter-spacing: 1.5px;
   }
@@ -914,11 +948,17 @@ nav.scrolled {
 
 @media (max-width: 480px) {
   .dress-swatches {
-    gap: 14px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
+  /* .dress-swatches {
+    gap: 14px;
+  } */
 
   .swatch {
-    width: 64px;
+    grid-template-columns: 1fr;
+    margin-top: 48px;
+    /* width: 64px; */
   }
 
   .swatch-color {
@@ -926,7 +966,7 @@ nav.scrolled {
     height: 42px;
   }
 
-  .swatch-label {
+  .swatch-title {
     font-size: 8px;
     letter-spacing: 1px;
   }

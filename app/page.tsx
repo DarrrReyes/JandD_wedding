@@ -27,6 +27,8 @@ import { DressCode } from "./components/DressCode/DressCode";
 import { RSVPFormValues, schemaRSVP } from "./schema/ISchemaRSVP";
 import { CountdownTime } from "./components/CountDownTime/CountDownTime";
 import RSVPCard from "./components/RSVPCard/RSVPCard";
+import StorySection from "./components/StorySection/StorySection";
+import { IconTie, IconWoman } from "@tabler/icons-react";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -117,24 +119,22 @@ export default function WeddingInvitation() {
   // DressCode
   const dressSwatches = [
     {
-      label: "Champagne",
-      color: "#E7D3B0",
-      delay: 100,
+      to: "Gentlemen",
+      image: <IconTie />,
+      dressCode: [
+        { color: "#E7D3B0", delay: 100 },
+        { color: "#A8B69A", delay: 200 },
+        { color: "#E7D360", delay: 300 },
+      ],
     },
     {
-      label: "Sage",
-      color: "#A8B69A",
-      delay: 200,
-    },
-    {
-      label: "Dusty Rose",
-      color: "#C9A3A3",
-      delay: 300,
-    },
-    {
-      label: "Slate",
-      color: "#7D8796",
-      delay: 400,
+      to: "Ladies",
+      image: <IconWoman />,
+      dressCode: [
+        { color: "#E7D3B0", delay: 400 },
+        { color: "#A8B69A", delay: 500 },
+        { color: "#E7D360", delay: 600 },
+      ],
     },
   ];
   // Gallery
@@ -180,7 +180,10 @@ export default function WeddingInvitation() {
     <>
       {/* Nav */}
       <nav className={scrolled ? "scrolled" : ""}>
-        <Text className={"nav-logo"}>A & J</Text>
+        <Text component="a" href="#home" className="nav-logo">
+          J & D
+        </Text>
+        {/* <Text className={"nav-logo"} >J & D</Text> */}
 
         <Group visibleFrom="md" className="nav-links">
           <Anchor href="#story">Our Story</Anchor>
@@ -193,6 +196,7 @@ export default function WeddingInvitation() {
           hiddenFrom="md"
           opened={opened}
           onClick={() => setOpened((o) => !o)}
+          color="var(--gold)"
         />
       </nav>
 
@@ -200,13 +204,27 @@ export default function WeddingInvitation() {
         opened={opened}
         onClose={() => setOpened(false)}
         position="right"
-        // size="100%"
         classNames={{
           content: "app-drawer-content",
           body: "app-drawer-body",
         }}
+        styles={{
+          close: {
+            backgroundColor: "transparent",
+            color: "var(--gold)",
+          },
+        }}
       >
         <Stack gap="xl">
+          <Text
+            component="a"
+            href="#home"
+            className="nav-logo"
+            onClick={() => setOpened(false)}
+          >
+            J & D
+          </Text>
+
           <Anchor href="#story" onClick={() => setOpened(false)}>
             Our Story
           </Anchor>
@@ -223,7 +241,7 @@ export default function WeddingInvitation() {
       </Drawer>
 
       {/* Hero */}
-      <Box className="hero">
+      <Box className="hero" id="home">
         {/* 🌌 BASE BLUE BACKGROUND */}
         <Box className="hero-bg-base" />
 
@@ -310,13 +328,11 @@ export default function WeddingInvitation() {
           <Grid className="story-grid">
             {/* Chapter I */}
             <Grid.Col span={{ base: 12, md: 6 }}>
-              <Stack gap="md" data-aos="fade-up" data-aos-delay="100">
-                <Text className="story-chapter">Chapter I</Text>
-
-                <Title order={3} className="story-title">
-                  The Coffee House Encounter
-                </Title>
-
+              <StorySection
+                chapter="Chapter I"
+                title="The Coffee House Encounter"
+                aosDelay={100}
+              >
                 <Text className="story-text">
                   It started with a shared table in a rain-soaked Edinburgh
                   café, one October afternoon when every other seat was taken.
@@ -331,7 +347,7 @@ export default function WeddingInvitation() {
                     "I didn't believe in coincidence before that afternoon."
                   </Text>
                 </Box>
-              </Stack>
+              </StorySection>
             </Grid.Col>
 
             {/* Image AOS zoom */}
@@ -358,13 +374,11 @@ export default function WeddingInvitation() {
 
             {/* Chapter II */}
             <Grid.Col span={{ base: 12, md: 6 }}>
-              <Stack gap="md" data-aos="fade-up" data-aos-delay="200">
-                <Text className="story-chapter">Chapter II</Text>
-
-                <Title order={3} className="story-title">
-                  Three Continents Later
-                </Title>
-
+              <StorySection
+                chapter="Chapter II"
+                title="Three Continents Later"
+                aosDelay={200}
+              >
                 <Text className="story-text">
                   Kyoto in cherry blossom season. A rooftop in Lisbon. The
                   southern tip of Patagonia in the driving rain. In each place
@@ -379,50 +393,11 @@ export default function WeddingInvitation() {
                   cat named Ottoline, they are ready to call the adventure
                   something official.
                 </Text>
-              </Stack>
+              </StorySection>
             </Grid.Col>
           </Grid>
         </Container>
       </Box>
-      {/* <section className="story-section" id="story">
-        <div className="container">
-          <div className="section-heading" data-aos="fade-up">
-            <span className="eyebrow">How It Began</span>
-            <h2 className="section-title">Our Story</h2>
-            <div className="gold-divider" />
-          </div>
-
-          <div className="story-grid">
-            <div data-aos="fade-up" data-aos-delay="100">
-              <p className="story-chapter">Chapter I</p>
-              <h3 className="story-title">The Coffee House Encounter</h3>
-              <p className="story-text">
-                It started with a shared table in a rain-soaked Edinburgh café, one October afternoon when every other seat was taken. Arlo had a book he wasn't reading. Jane had notes she wasn't writing. Neither remembers who spoke first — only that they talked until the windows went dark and the barista swept around their chairs twice.
-              </p>
-              <div className="story-quote">
-                <p>"I didn't believe in coincidence before that afternoon."</p>
-              </div>
-            </div>
-            <div data-aos="zoom-in" data-aos-delay="200">
-              <div className="story-image-placeholder">A & J</div>
-            </div>
-
-            <div data-aos="zoom-in" data-aos-delay="100">
-              <div className="story-image-placeholder" style={{ aspectRatio: '4/3' }}>2021</div>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="200">
-              <p className="story-chapter">Chapter II</p>
-              <h3 className="story-title">Three Continents Later</h3>
-              <p className="story-text">
-                Kyoto in cherry blossom season. A rooftop in Lisbon. The southern tip of Patagonia in the driving rain. In each place they discovered something new — about the world and, more importantly, about each other. By the time Arlo proposed on a ferry crossing the Bosphorus, Jane had already known her answer for two years.
-              </p>
-              <p className="story-text" style={{ marginTop: '20px' }}>
-                Now, after seven years, four time zones, and one very patient cat named Ottoline, they are ready to call the adventure something official.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* The Celebration */}
       <Box component="section" className="celebration-section" id="celebration">
@@ -447,7 +422,7 @@ export default function WeddingInvitation() {
 
           <Box className="dress-swatches">
             {dressSwatches.map((swatch) => (
-              <DressCode key={swatch.label} {...swatch} />
+              <DressCode key={swatch.to} {...swatch} />
             ))}
           </Box>
         </Container>
@@ -500,7 +475,7 @@ export default function WeddingInvitation() {
             data-aos="fade-up"
           >
             <Text component="span" className="eyebrow">
-              Kindly Reply By September 1st
+              Kindly Reply By November 1st
             </Text>
 
             <Title order={2} className="section-title">
@@ -523,3 +498,7 @@ export default function WeddingInvitation() {
     </>
   );
 }
+
+//need to remove in package
+// "@tabler/icons": "^3.44.0",
+// "clsx": "^2.1.1",
