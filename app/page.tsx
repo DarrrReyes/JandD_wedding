@@ -18,7 +18,7 @@ import {
 } from "@mantine/core";
 import { useState, useEffect, useRef } from "react";
 import { useMediaQuery } from "@mantine/hooks";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useForm } from "@mantine/form";
 import { yupResolver } from "mantine-form-yup-resolver";
 import { CelebrationCard } from "./components/CelebrationCard/CelebrationCard";
@@ -32,21 +32,35 @@ import { IconTie, IconWoman } from "@tabler/icons-react";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
-function useCountdown(targetDate) {
-  const [timeLeft, setTimeLeft] = useState({
+type TimeLeft = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
+
+function useCountdown(targetDate: Dayjs): TimeLeft {
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
+
   useEffect(() => {
     const tick = () => {
-      const now = new Date();
-      const diff = targetDate - now;
+      const diff = targetDate.valueOf() - dayjs().valueOf();
+
       if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        });
         return;
       }
+
       setTimeLeft({
         days: Math.floor(diff / 86400000),
         hours: Math.floor((diff % 86400000) / 3600000),
@@ -54,10 +68,13 @@ function useCountdown(targetDate) {
         seconds: Math.floor((diff % 60000) / 1000),
       });
     };
+
     tick();
+
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, [targetDate]);
+
   return timeLeft;
 }
 
@@ -440,8 +457,8 @@ export default function WeddingInvitation() {
           </Stack>
 
           <Box className="dress-swatches">
-            {dressSwatches.map((swatch) => (
-              <DressCode key={swatch.to} {...swatch} />
+            {dressSwatches.map((swatch, index) => (
+              <DressCode key={index} {...swatch} />
             ))}
           </Box>
         </Container>
