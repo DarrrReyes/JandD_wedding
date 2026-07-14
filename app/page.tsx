@@ -119,23 +119,25 @@ export default function WeddingInvitation() {
   // DressCode
   const dressSwatches = [
     {
-      to: "Gentlemen",
+      // to: "Guest",
       image: <IconTie />,
       dressCode: [
-        { color: "#E7D3B0", delay: 100 },
-        { color: "#A8B69A", delay: 200 },
-        { color: "#E7D360", delay: 300 },
+        { color: "#eadac1", delay: 100 },
+        { color: "#dcc39a", delay: 200 },
+        { color: "#0b122f", delay: 400 },
+        { color: "#191c4c", delay: 500 },
+        { color: "#252f6a", delay: 600 },
       ],
     },
-    {
-      to: "Ladies",
-      image: <IconWoman />,
-      dressCode: [
-        { color: "#E7D3B0", delay: 400 },
-        { color: "#A8B69A", delay: 500 },
-        { color: "#E7D360", delay: 600 },
-      ],
-    },
+    // {
+    //   to: "Ladies",
+    //   image: <IconWoman />,
+    //   dressCode: [
+    //     { color: "#0b122f", delay: 400 },
+    //     { color: "#191c4c", delay: 500 },
+    //     { color: "#252f6a", delay: 600 },
+    //   ],
+    // },
   ];
   // Gallery
   const galleryItems = [
@@ -269,9 +271,6 @@ export default function WeddingInvitation() {
             Jasper & Daniella
           </Text>
 
-          {/* <Text className="footer-thanks">
-            Join us as we celebrate love, laughter, and the beginning of our forever.
-          </Text> */}
           <Box className="gold-divider" />
 
           <Text className="hero-date" ta="center">
@@ -282,9 +281,6 @@ export default function WeddingInvitation() {
             Join us as we celebrate love, laughter, and the beginning of our
             forever.
           </Text>
-          {/* <Text className="hero-location" ta="center">
-            El Camino Real · Meycauayan, Bulacan
-          </Text> */}
         </Container>
       </Box>
 
@@ -330,16 +326,26 @@ export default function WeddingInvitation() {
             <Grid.Col span={{ base: 12, md: 6 }}>
               <StorySection
                 chapter="Chapter I"
-                title="The Coffee House Encounter"
+                title="The Friendship Worth Risking"
                 aosDelay={100}
               >
                 <Text className="story-text">
-                  It started with a shared table in a rain-soaked Edinburgh
-                  café, one October afternoon when every other seat was taken.
-                  Arlo had a book he wasn't reading. Jane had notes she wasn't
-                  writing. Neither remembers who spoke first — only that they
-                  talked until the windows went dark and the barista swept
-                  around their chairs twice.
+                  Jasper and Daniella met in 2016 during their senior year of
+                  high school. What began as a simple friendship soon blossomed
+                  into something deeper. They spent countless days hanging out,
+                  sharing laughs, and simply enjoying each other's company until
+                  they became the best of friends. After a year of friendship,
+                  they realized there was something more between them. In 2017,
+                  they took a leap of faith and turned their friendship into a
+                  relationship.
+                </Text>
+
+                <Text className="story-text">
+                  People often say that dating your best friend is risky because
+                  it could ruin the friendship. For Jasper and Daniella, though,
+                  taking that chance was the best decision they ever made. It
+                  turns out that "ruining" the friendship was worth it because
+                  it became the beginning of their forever.
                 </Text>
 
                 <Box className="story-quote">
@@ -419,6 +425,19 @@ export default function WeddingInvitation() {
               <CelebrationCard key={item.type} {...item} />
             ))}
           </Box>
+
+          <Stack
+            className="section-heading"
+            gap="xs"
+            mt={"xl"}
+            data-aos="fade-up"
+          >
+            <Title order={2} className="section-title">
+              Attire & Colors
+            </Title>
+
+            <Box className="gold-divider" />
+          </Stack>
 
           <Box className="dress-swatches">
             {dressSwatches.map((swatch) => (

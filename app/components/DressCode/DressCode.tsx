@@ -2,7 +2,7 @@ import { Box, Group, Stack, Text } from "@mantine/core";
 import { ReactNode } from "react";
 
 interface DressCodeProps {
-  to: string;
+  to?: string;
   image?: ReactNode;
   dressCode: {
     color: string;
@@ -21,7 +21,7 @@ export function DressCode({ to, image, dressCode }: DressCodeProps) {
     >
       {image}
 
-      <Box className="gold-divider" />
+      {/* <Box className="gold-divider" /> */}
       <Text ta="center" className="swatch-title">
         {to}
       </Text>
