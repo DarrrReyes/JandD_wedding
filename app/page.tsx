@@ -3,20 +3,16 @@ import {
   Anchor,
   Box,
   Burger,
-  Button,
   Container,
   Drawer,
   Grid,
   Group,
-  Radio,
   SimpleGrid,
   Stack,
   Text,
-  Textarea,
-  TextInput,
   Title,
 } from "@mantine/core";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import dayjs, { Dayjs } from "dayjs";
 import { useForm } from "@mantine/form";
@@ -28,7 +24,7 @@ import { RSVPFormValues, schemaRSVP } from "./schema/ISchemaRSVP";
 import { CountdownTime } from "./components/CountDownTime/CountDownTime";
 import RSVPCard from "./components/RSVPCard/RSVPCard";
 import StorySection from "./components/StorySection/StorySection";
-import { IconTie, IconWoman } from "@tabler/icons-react";
+import { IconTie } from "@tabler/icons-react";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 

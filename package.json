@@ -19,11 +19,9 @@
     "@mantine/modals": "^9.2.0",
     "@mantine/notifications": "^9.2.0",
     "@mantine/nprogress": "^9.2.0",
-    "@tabler/icons": "^3.44.0",
     "@tabler/icons-react": "^3.44.0",
     "aos": "^2.3.4",
     "axios": "^1.16.0",
-    "clsx": "^2.1.1",
     "dayjs": "^1.11.20",
     "embla-carousel": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
@@ -45,5 +43,3 @@
     "typescript": "^5"
   }
 }
-
-
