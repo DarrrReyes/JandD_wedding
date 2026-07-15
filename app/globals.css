@@ -79,13 +79,24 @@ section {
   padding: 0 24px;
 }
 
-.eyebrow {
+/* .eyebrow {
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 16px;
   display: block;
+} */
+
+.sub-title-gold {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(14px, 3vw, 20px);
+  letter-spacing: 8px;
+  /* letter-spacing: 4px; */
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 16px;
+  font-weight: 300;
 }
 
 /* =========================
@@ -216,7 +227,6 @@ nav.scrolled {
   backdrop-filter: blur(10px);
   border-left: 1px solid rgba(212, 175, 55, 0.2);
 }
-
 
 .mantine-Drawer-header {
   background: transparent !important;
@@ -409,16 +419,6 @@ nav.scrolled {
   line-height: 1;
 }
 
-.hero-date {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(14px, 3vw, 20px);
-  letter-spacing: 8px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin: 20px 10px;
-  font-weight: 300;
-}
-
 .hero-location {
   font-size: 13px;
   letter-spacing: 3px;
@@ -512,7 +512,7 @@ nav.scrolled {
     font-size: clamp(72px, 14vw, 70px) !important;
   }
 
-  .hero-date {
+  .sub-title-gold {
     letter-spacing: 4px;
   }
 }
@@ -520,8 +520,8 @@ nav.scrolled {
 /* COUNTDOWN */
 .section-title {
   color: #fff;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(42px, 6vw, 72px);
+  font-family: "Cormorant Garamond" serif !important;
+  font-size: clamp(38px, 6vw, 38px) !important;
   font-weight: 300;
   letter-spacing: 0.02em;
   line-height: 1.1;
@@ -968,7 +968,7 @@ nav.scrolled {
 @media (max-width: 480px) {
   .dress-swatches {
     /* If you have 2 gender Color */
-    /* grid-template-columns: 1fr; */ 
+    /* grid-template-columns: 1fr; */
     gap: 16px;
   }
   /* .dress-swatches {
@@ -1324,6 +1324,10 @@ nav.scrolled {
   color: rgba(255, 255, 255, 0.15);
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+.footer-copyright:hover {
+  color: var(--gold);
 }
 
 .section-heading {

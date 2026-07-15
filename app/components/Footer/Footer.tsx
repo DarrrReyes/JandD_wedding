@@ -23,7 +23,7 @@ const Footer = () => {
             Thank you for being a part of our beginning.
           </Text>
 
-          <Text className="footer-copyright">Made by 'title ng business' · 2026</Text>
+          <Text className="footer-copyright">Made by FJD Studio · 2026</Text>
         </Stack>
       </Container>
     </Box>

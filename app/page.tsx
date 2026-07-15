@@ -286,7 +286,7 @@ export default function WeddingInvitation() {
 
           <Box className="gold-divider" />
 
-          <Text className="hero-date" ta="center">
+          <Text className="sub-title-gold" ta="center">
             December 1st, 2026
           </Text>
 
@@ -301,11 +301,9 @@ export default function WeddingInvitation() {
       <Box component="section" className="countdown-section">
         <Container size="lg" ta="center">
           <Box data-aos="fade-up">
-            <Text className="eyebrow">Counting Every Moment</Text>
+            <Text className="sub-title-gold">Counting Every Moment</Text>
 
-            <Title order={2} className="section-title">
-              Until We Say I Do
-            </Title>
+            <Text className="section-title">Until We Say I Do</Text>
 
             <Box className="gold-divider footer-divider" />
           </Box>
@@ -329,8 +327,8 @@ export default function WeddingInvitation() {
         <Container size="xl">
           {/* Heading */}
           <div className="section-heading" data-aos="fade-up">
-            <span className="eyebrow">How It Began</span>
-            <h2 className="section-title">Our Story</h2>
+            <Text className="sub-title-gold">How It Began</Text>
+            <Text className="section-title">Our Story</Text>
             <div className="gold-divider" />
           </div>
 
@@ -422,13 +420,11 @@ export default function WeddingInvitation() {
       <Box component="section" className="celebration-section" id="celebration">
         <Container size="lg">
           <Stack className="section-heading" gap="xs" data-aos="fade-up">
-            <Text component="span" className="eyebrow">
+            <Text component="span" className="sub-title-gold">
               1st December 2026
             </Text>
 
-            <Title order={2} className="section-title">
-              The Celebration
-            </Title>
+            <Text className="section-title">The Celebration</Text>
 
             <Box className="gold-divider" />
           </Stack>
@@ -445,9 +441,7 @@ export default function WeddingInvitation() {
             mt={"xl"}
             data-aos="fade-up"
           >
-            <Title order={2} className="section-title">
-              Attire & Colors
-            </Title>
+            <Text className="section-title">Attire & Colors</Text>
 
             <Box className="gold-divider" />
           </Stack>
@@ -469,13 +463,11 @@ export default function WeddingInvitation() {
             className="section-heading"
             data-aos="fade-up"
           >
-            <Text component="span" className="eyebrow">
+            <Text component="span" className="sub-title-gold">
               A Few Favourite Frames
             </Text>
 
-            <Title order={2} className="section-title">
-              Moments
-            </Title>
+            <Text className="section-title">Moments</Text>
 
             <Box className="gold-divider" />
           </Stack>
@@ -506,13 +498,11 @@ export default function WeddingInvitation() {
             className="section-heading"
             data-aos="fade-up"
           >
-            <Text component="span" className="eyebrow">
+            <Text component="span" className="sub-title-gold">
               Kindly Reply By November 1st
             </Text>
 
-            <Title order={2} className="section-title">
-              RSVP
-            </Title>
+            <Text className="section-title">RSVP</Text>
 
             <Box className="gold-divider" />
           </Stack>
