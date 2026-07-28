@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 interface IRootLayout extends PropsWithChildren, AppProps { }
 
-export default function RootLayout({ children, ...props }: IRootLayout) {
+export default function RootLayout({ children }: IRootLayout) {
   return (
     <html
       lang="en"
