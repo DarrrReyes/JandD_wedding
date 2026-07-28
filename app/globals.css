@@ -548,7 +548,7 @@ nav.scrolled {
 .countdown-number {
   display: block;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(48px, 8vw, 72px);
+  font-size: clamp(36px, 8vw, 36px) !important;
   font-weight: 300;
   line-height: 1;
   color: var(--gold);
@@ -557,11 +557,9 @@ nav.scrolled {
 .countdown-label {
   display: block;
   margin-top: 10px;
-
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
-
   color: rgba(255, 255, 255, 0.5);
 }
 

@@ -520,7 +520,3 @@ export default function WeddingInvitation() {
     </>
   );
 }
-
-//need to remove in package
-// "@tabler/icons": "^3.44.0",
-// "clsx": "^2.1.1",
