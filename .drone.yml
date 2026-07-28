@@ -8,7 +8,7 @@ steps:
     settings:
       tags: ${DRONE_TAG}
       dockerfile: Dockerfile
-      repo: 172.20.208.1:5000/FJD/registry
+      repo: 172.20.208.1:5000/fjd/registry
       registry: 172.20.208.1:5000
       insecure: true
 
