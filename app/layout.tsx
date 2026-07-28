@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Geist, Geist_Mono, Great_Vibes } from "next/font/google";
-import { PropsWithChildren, ReactNode } from "react";
-import { AppProps } from "next/app";
+import {
+  Cormorant_Garamond,
+  Geist,
+  Geist_Mono,
+  Great_Vibes,
+} from "next/font/google";
 import { Flex, MantineProvider } from "@mantine/core";
-import { theme } from "./config/theme";
 import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
+import { theme } from "./config/theme";
 import AOSProvider from "./provider/AOSProvider";
+import { ReactNode } from "react";
 
 import "./globals.css";
 import "@mantine/core/styles.css";
@@ -14,10 +18,15 @@ import "@mantine/notifications/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/carousel/styles.css";
-import "@mantine/carousel/styles.css";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -27,13 +36,8 @@ const greatVibes = Great_Vibes({
   variable: "--font-great-vibes",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 const cormorantGaramond = Cormorant_Garamond({
-  variable: "--font-geist-mono",
+  variable: "--font-cormorant-garamond",
   subsets: ["latin"],
 });
 
@@ -42,7 +46,9 @@ export const metadata: Metadata = {
   description: "Created By FJD Studio",
 };
 
-interface IRootLayout extends PropsWithChildren, AppProps { }
+interface IRootLayout {
+  children: ReactNode;
+}
 
 export default function RootLayout({ children }: IRootLayout) {
   return (
@@ -53,13 +59,14 @@ export default function RootLayout({ children }: IRootLayout) {
       <body>
         <MantineProvider theme={theme}>
           <Notifications />
+
           <ModalsProvider>
             <AOSProvider />
+
             <Flex
-              direction={'column'}
+              direction="column"
               style={{
                 width: "100%",
-                // maxWidth: "480px", // mobile max width
                 minHeight: "100vh",
               }}
             >
