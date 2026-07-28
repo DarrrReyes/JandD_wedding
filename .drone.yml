@@ -21,7 +21,7 @@ type: docker
 name: frontend
 
 steps:
-  - name: build-and-push
+  - name: build
     image: plugins/docker
     settings:
       registry: 172.20.208.1:5000
