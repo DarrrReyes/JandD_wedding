@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <Box component="footer" className="wedding-footer">
       <Container size="lg" data-aos="fade-up" data-aos-duration="1000">
-        <div className="gold-divider footer-divider" />
+        <Box className="gold-divider footer-divider" />
 
         <Text className="footer-names">Jasper & Daniella</Text>
 

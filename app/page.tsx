@@ -406,9 +406,9 @@ export default function WeddingInvitation() {
                 </Text>
 
                 <Text className="story-text story-text-spaced">
-                  Now, after seven years, four time zones, and one very patient
-                  cat named Ottoline, they are ready to call the adventure
-                  something official.
+                  Now, After almost a decade, after countless travels and
+                  adventures from beaches to mountains, they’re ready to give
+                  their greatest adventure a forever name.
                 </Text>
               </StorySection>
             </Grid.Col>

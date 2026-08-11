@@ -1259,7 +1259,7 @@ nav.scrolled {
 ======================= */
 .footer-names {
   font-family: "Great Vibes", cursive;
-  font-size: clamp(36px, 6vw, 52px);
+  font-size: clamp(28px, 6vw, 28px) !important;
   color: var(--gold);
   margin-bottom: 8px;
 }
