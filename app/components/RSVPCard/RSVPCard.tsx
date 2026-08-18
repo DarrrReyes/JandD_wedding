@@ -84,7 +84,7 @@ export default function RSVPCard({
 
             <Box>
               <Text component="label" htmlFor="dietary" className="form-label">
-                Dietary Requirements
+                Remarks
               </Text>
 
               <Textarea
@@ -93,8 +93,8 @@ export default function RSVPCard({
                 autosize
                 minRows={3}
                 className="form-textarea"
-                placeholder="Please note any allergies or dietary needs"
-                {...form.getInputProps("dietary")}
+                placeholder="Please note any allergies"
+                {...form.getInputProps("remarks")}
               />
             </Box>
 

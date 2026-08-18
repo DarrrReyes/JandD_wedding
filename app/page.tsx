@@ -25,6 +25,8 @@ import { CountdownTime } from "./components/CountDownTime/CountDownTime";
 import RSVPCard from "./components/RSVPCard/RSVPCard";
 import StorySection from "./components/StorySection/StorySection";
 import { IconTie } from "@tabler/icons-react";
+import prisma from "@/lib/prisma";
+import { createGuest } from "@/action/guest";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -167,17 +169,29 @@ export default function WeddingInvitation() {
     initialValues: {
       name: "",
       attendance: "attending",
-      dietary: "",
+      remarks: "",
     },
     validate: yupResolver(schemaRSVP),
   });
 
-  const handleSubmit = form.onSubmit((values) => {
-    console.log(values);
-
-    // API call here
-
-    setSubmitted(true);
+  const handleSubmit = form.onSubmit(async (values) => {
+    const payload = {
+      name: values.name,
+      remarks: values.remarks,
+      isAttending: values.attendance === "attending" ? true : false,
+    }
+    try {
+      const res = await createGuest(payload);
+  
+      if (res.status === 200 || res.status === 201) {
+        console.log("Created guest:", res.data);
+        setSubmitted(true);
+      } else {
+        console.log("Failed to create guest");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   });
   // Footer
 
