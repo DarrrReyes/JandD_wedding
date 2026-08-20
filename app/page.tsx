@@ -135,7 +135,13 @@ export default function WeddingInvitation() {
   const dressSwatches = [
     {
       // to: "Guest",
-      image: <IconTie />,
+      // image: (
+      //   <Text className="footer-thanks" ta="center">
+      //     We kindly encourage our guests to choose from our wedding color
+      //     palette. Whether you wear one shade or mix and match, we’d love to see
+      //     you bring these colors to life on our special day.
+      //   </Text>
+      // ),
       dressCode: [
         { color: "#eadac1", delay: 100 },
         { color: "#dcc39a", delay: 200 },
@@ -179,10 +185,10 @@ export default function WeddingInvitation() {
       name: values.name,
       remarks: values.remarks,
       isAttending: values.attendance === "attending" ? true : false,
-    }
+    };
     try {
       const res = await createGuest(payload);
-  
+
       if (res.status === 200 || res.status === 201) {
         console.log("Created guest:", res.data);
         setSubmitted(true);

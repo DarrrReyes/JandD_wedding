@@ -2,15 +2,15 @@ import { Box, Group, Stack, Text } from "@mantine/core";
 import { ReactNode } from "react";
 
 interface DressCodeProps {
-  to?: string;
-  image?: ReactNode;
+  // to?: string;
+  // image?: ReactNode;
   dressCode: {
     color: string;
     delay: number;
   }[];
 }
 
-export function DressCode({ to, image, dressCode }: DressCodeProps) {
+export function DressCode({  dressCode }: DressCodeProps) {
   return (
     <Stack
       className="swatch"
@@ -19,11 +19,15 @@ export function DressCode({ to, image, dressCode }: DressCodeProps) {
       data-aos="fade-up"
       data-aos-delay="100"
     >
-      {image}
-
       {/* <Box className="gold-divider" /> */}
-      <Text ta="center" className="swatch-title">
+      {/* <Text ta="center" className="swatch-title">
         {to}
+      </Text> */}
+
+      <Text className="footer-thanks" ta="center">
+        We kindly encourage our guests to choose from our wedding color palette.
+        Whether you wear one shade or mix and match, we’d love to see you bring
+        these colors to life on our special day.
       </Text>
 
       <Group gap="xs" justify="center">
