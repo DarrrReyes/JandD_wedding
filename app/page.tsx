@@ -107,27 +107,29 @@ export default function WeddingInvitation() {
     {
       type: "Ceremony",
       venue: "Sto. Niño Parish",
+      location: "Sto. Niño Parish El Camino Real, Meycauayan, Bulacan",
+      remarks:
+        "For members of the entourage, please be at the church 30 minutes before the ceremony",
       details: [
         "17 El Camino Real, Meycauayan, Bulacan",
         "Doors open at 1:00 PM",
-        "Ceremony begins 2:00 PM",
-        "For members of the entourage, please be at the church 30 minutes before the ceremony",
       ],
-      description:
-        "A cherished parish in the heart of Meycauayan, where faith and love come together. The perfect place to begin a lifelong promise.",
+      // description:
+      //   "A cherished parish in the heart of Meycauayan, where faith and love come together. The perfect place to begin a lifelong promise.",
       aosDelay: 100,
     },
     {
       type: "Reception",
       venue: "Casa Miguel Events Place",
+      location: "Casa Miguel Events Place",
+      remarks: "Test",
+
       details: [
         "Phase 1 Blk 9 Lot 16, Metrogate II Jao st, Marilao, Bulacan",
-        "Cocktails from 5:30 PM",
-        "Dinner & dancing from 7:00 PM",
         "Evening ends at midnight",
       ],
-      description:
-        "A celebration of love and happiness awaits. Come share in an evening filled with laughter, music, and unforgettable memories.",
+      // description:
+      //   "A celebration of love and happiness awaits. Come share in an evening filled with laughter, music, and unforgettable memories.",
       aosDelay: 200,
     },
   ];
@@ -203,13 +205,17 @@ export default function WeddingInvitation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (isMobile) return;
       setScrollY(window.scrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -278,13 +284,17 @@ export default function WeddingInvitation() {
       {/* Hero */}
       <Box className="hero" id="home">
         {/* 🌌 BASE BLUE BACKGROUND */}
-        <Box className="hero-bg-base" />
+        {/* <Box className="hero-bg-base" /> */}
 
         {/* 🖼️ PARALLAX IMAGE LAYER */}
         <Box
           className="hero-bg-image"
           style={{
-            transform: `translateY(${scrollY * 0.2}px)`,
+            transform: `translate3d(
+          0,
+          ${scrollY * (isMobile ? 0.08 : 0.2)}px,
+          0
+        )`,
             backgroundImage:
               "url(https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2000&q=80)",
           }}
@@ -294,14 +304,20 @@ export default function WeddingInvitation() {
         <Box
           className="hero-dots"
           style={{
-            transform: `translateY(${scrollY * 0.1}px)`,
+            transform: `translate3d(
+          0,
+          ${scrollY * (isMobile ? 0.04 : 0.1)}px,
+          0
+        )`,
           }}
         />
 
         {/* 📝 CONTENT */}
         <Container size="sm" className="hero-content">
           <Text className="hero-title" ta="center">
-            Jasper & Daniella
+            <span>Jasper</span>
+            <span>&</span>
+            <span>Daniella</span>
           </Text>
 
           <Box className="gold-divider" />
@@ -315,6 +331,12 @@ export default function WeddingInvitation() {
             forever.
           </Text>
         </Container>
+
+        {/* 👇 SCROLL INDICATOR */}
+        {/* <Box className="scroll-indicator">
+      <Text>Scroll</Text>
+      <Box className="scroll-line" />
+    </Box> */}
       </Box>
 
       {/* Countdown */}
@@ -381,7 +403,7 @@ export default function WeddingInvitation() {
 
                 <Box className="story-quote">
                   <Text>
-                    "I didn't believe in coincidence before that afternoon."
+                    "We didn't know our friendship was the beginning of forever"
                   </Text>
                 </Box>
               </StorySection>
@@ -399,7 +421,7 @@ export default function WeddingInvitation() {
             </Grid.Col>
 
             {/* Image 2 */}
-            <Grid.Col span={{ base: 12, md: 6 }}>
+            {/* <Grid.Col span={{ base: 12, md: 6 }}>
               <Box
                 className="story-image-placeholder story-image-wide"
                 data-aos="zoom-in"
@@ -409,7 +431,7 @@ export default function WeddingInvitation() {
               </Box>
             </Grid.Col>
 
-            {/* Chapter II */}
+            Chapter II
             <Grid.Col span={{ base: 12, md: 6 }}>
               <StorySection
                 chapter="Chapter II"
@@ -431,7 +453,7 @@ export default function WeddingInvitation() {
                   their greatest adventure a forever name.
                 </Text>
               </StorySection>
-            </Grid.Col>
+            </Grid.Col> */}
           </Grid>
         </Container>
       </Box>

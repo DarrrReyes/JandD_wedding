@@ -29,9 +29,9 @@ export default function RSVPCard({
         <Stack align="center" py={40}>
           <Box className="gold-divider" />
 
-          <Title order={3} className="rsvp-thank-you">
+          <Text className="sub-title-gold">
             Thank You
-          </Title>
+          </Text>
 
           <Text className="rsvp-message">
             We have received your response and can't wait to celebrate with you.

@@ -1,4 +1,4 @@
-import { Anchor, Box, Container, Group, Stack, Text } from "@mantine/core";
+import { Anchor, Box, Container, Flex, Group, Stack, Text } from "@mantine/core";
 import React from "react";
 
 const Footer = () => {
@@ -7,24 +7,25 @@ const Footer = () => {
       <Container size="lg" data-aos="fade-up" data-aos-duration="1000">
         <Box className="gold-divider footer-divider" />
 
+        <Flex direction={'column'} gap={10}>
         <Text className="footer-names">Jasper & Daniella</Text>
-
         <Text className="footer-date">1st December 2026</Text>
-
+      
         <Group justify="center" wrap="wrap" gap="xl" className="footer-links">
           <Anchor href="#story">Our Story</Anchor>
           <Anchor href="#celebration">Details</Anchor>
           <Anchor href="#gallery">Gallery</Anchor>
           <Anchor href="#rsvp">RSVP</Anchor>
         </Group>
+        </Flex>
 
-        <Stack gap={8} align="center">
+        <Flex direction={'column'} gap={5} align="center">
           <Text className="footer-thanks">
             Thank you for being a part of our beginning.
           </Text>
 
-          <Text className="footer-copyright">Made by FJD Studio · 2026</Text>
-        </Stack>
+          <Text className="footer-copyright">Made by Dos · 2026</Text>
+        </Flex>
       </Container>
     </Box>
 
