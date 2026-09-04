@@ -26,7 +26,7 @@ import StorySection from "./components/StorySection/StorySection";
 import { createGuest } from "@/action/guest";
 import { celebrationData } from "./data/celebration";
 
-export const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
+const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
 type TimeLeft = {
   days: number;
