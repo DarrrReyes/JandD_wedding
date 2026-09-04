@@ -10,7 +10,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  Title,
 } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "@mantine/hooks";
@@ -24,11 +23,10 @@ import { RSVPFormValues, schemaRSVP } from "./schema/ISchemaRSVP";
 import { CountdownTime } from "./components/CountDownTime/CountDownTime";
 import RSVPCard from "./components/RSVPCard/RSVPCard";
 import StorySection from "./components/StorySection/StorySection";
-import { IconTie } from "@tabler/icons-react";
-import prisma from "@/lib/prisma";
 import { createGuest } from "@/action/guest";
+import { celebrationData } from "./data/celebration";
 
-const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
+export const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
 type TimeLeft = {
   days: number;
@@ -102,32 +100,8 @@ export default function WeddingInvitation() {
     { value: seconds, label: "Seconds" },
   ];
   // Story
-  // Celebration
-  const celebrationData = [
-    {
-      type: "Ceremony",
-      when: String(WEDDING_DATE),
-      whenSub: ["Doors open at 1:00 PM"],
-      venue: "Sto. Niño Parish",
-      location: "Sto. Niño Parish El Camino Real, Meycauayan, Bulacan",
-      img: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmO_jegwCSKz7LGJGxkv6qpfl5k85aTieM9cVpvWr9kFMTlvAv6y32kUNm-YaPQ_aNmFICN6SopS4lb0FpVTYc5mHJBxsiFgOoqZwO_YyCMlMcRZ_iWjkBUcCjXiYBsilQSnxcMVg=w408-h543-k-no",
-      remarks:
-        "For members of the entourage, please be at the church 30 minutes before the ceremony",
-      details: ["17 El Camino Real, Meycauayan, Bulacan", ' '],
-      aosDelay: 100,
-    },
-    {
-      type: "Reception",
-      when: String(WEDDING_DATE),
-      whenSub: ['TIME'],
-      venue: "Casa Miguel Events Place",
-      location: "Casa Miguel Events Place",
-      img: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn87VU_-zDP_vxpVbtBQIISAYkBNM3-zRCcQk8OFwJR-H_vR1DGwcOIb9kKL2xWSz9BvuM5jtof8oWr6snmitwz8oGbUzH_KA9Zou3u_fk86nDNZeWKvj9slKGAy5wVDUBAWW0x8ccFqzBK=w408-h544-k-no",
-      remarks: "Evening ends at midnight",
-      details: ["Phase 1 Blk 9 Lot 16, Metrogate II Jao st, Marilao, Bulacan"],
-      aosDelay: 200,
-    },
-  ];
+
+
   // DressCode
   const dressSwatches = [
     {
