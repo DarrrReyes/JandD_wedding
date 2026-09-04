@@ -1,21 +1,26 @@
 import { Box, Flex, Stack, Text, Title } from "@mantine/core";
+import dayjs from "dayjs";
 
 interface CelebrationCardProps {
   type: string;
+  when: string;
+  whenSub?: string[];
   venue: string;
   location: string;
+  img: string;
   details: string[];
-  // description: string;
   aosDelay?: number;
   remarks?: string;
 }
 
 export function CelebrationCard({
   type,
+  when,
+  whenSub,
   venue,
   location,
+  img,
   details,
-  // description,
   remarks,
   aosDelay = 0,
 }: CelebrationCardProps) {
@@ -41,7 +46,7 @@ export function CelebrationCard({
             className="map-link"
           >
             <img
-              src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmO_jegwCSKz7LGJGxkv6qpfl5k85aTieM9cVpvWr9kFMTlvAv6y32kUNm-YaPQ_aNmFICN6SopS4lb0FpVTYc5mHJBxsiFgOoqZwO_YyCMlMcRZ_iWjkBUcCjXiYBsilQSnxcMVg=w408-h543-k-no"
+              src={img}
               alt={`View ${venue} on Google Maps`}
               className="map-image"
             />
@@ -55,8 +60,14 @@ export function CelebrationCard({
           <Text className="detail-label">WHEN</Text>
 
           <Box className="detail-content">
-            <Text className="detail-main">{"whenTitle"}</Text>
-            <Text className="detail-sub">{"whenSub"}</Text>
+            <Text className="detail-main">
+              {dayjs(when).format("(dddd), MMMM DD, YYYY")}
+            </Text>
+            {whenSub?.map((sub) => (
+              <Text key={sub} className="detail-sub">
+                {sub}
+              </Text>
+            ))}
           </Box>
         </Box>
 
