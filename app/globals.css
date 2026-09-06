@@ -1407,14 +1407,15 @@ nav.scrolled {
 
   border: none;
 
-  background: linear-gradient(
+  /* background: #e8cc6a; */
+   /* linear-gradient(
     135deg,
     var(--gold-dark),
     var(--gold),
     var(--gold-light)
-  );
+  ); */
 
-  color: var(--midnight);
+  color: #03396c;
 
   font-family: "Noto Serif", serif;
   font-size: 11px;
@@ -1444,7 +1445,7 @@ nav.scrolled {
   max-width: 420px;
   text-align: center;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.8;
 }
 
@@ -1484,7 +1485,7 @@ nav.scrolled {
 }
 
 .footer-divider {
-  margin-bottom: 48px;
+  margin-bottom: 18px;
 }
 
 /* =======================

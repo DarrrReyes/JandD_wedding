@@ -26,7 +26,7 @@ export default function RSVPCard({
   return (
     <Box className="rsvp-card" data-aos="fade-up" data-aos-delay="150">
       {submitted ? (
-        <Stack align="center" py={40}>
+        <Flex align="center" py={40} direction={'column'} gap={15}>
           <Box className="gold-divider" />
 
           <Text className="sub-title-gold">
@@ -38,7 +38,7 @@ export default function RSVPCard({
           </Text>
 
           <Box className="gold-divider" />
-        </Stack>
+        </Flex>
       ) : (
         <form
           onSubmit={(e) => {
@@ -69,13 +69,13 @@ export default function RSVPCard({
                 <Box className="radio-group">
                   <Radio
                     value="attending"
-                    label="Joyfully accepts"
+                    label="I gladly accept."
                     color="yellow"
                   />
 
                   <Radio
                     value="declining"
-                    label="Regretfully declines"
+                    label="I regretfully decline."
                     color="yellow"
                   />
                 </Box>
@@ -93,12 +93,15 @@ export default function RSVPCard({
                 autosize
                 minRows={3}
                 className="form-textarea"
-                placeholder="Please note any allergies"
+                placeholder="Please note any allergies or any concerns."
                 {...form.getInputProps("remarks")}
               />
             </Box>
 
-            <Button type="submit" className="rsvp-btn" radius={0}>
+            <Button type="submit" 
+            className="rsvp-btn" 
+            bg={'#03396c'}
+            radius={0}>
               Send My Reply
             </Button>
           </Stack>

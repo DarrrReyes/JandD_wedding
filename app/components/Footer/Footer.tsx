@@ -7,21 +7,24 @@ const Footer = () => {
       <Container size="lg" data-aos="fade-up" data-aos-duration="1000">
         <Box className="gold-divider footer-divider" />
 
-        <Flex direction={'column'} gap={10}>
+        <Flex direction={'column'} >
         <Text className="footer-names">Jasper & Daniella</Text>
         <Text className="footer-date">1st December 2026</Text>
-      
-        <Group justify="center" wrap="wrap" gap="xl" className="footer-links">
+
+      <Box className="gold-divider" mt={17}/>
+
+        <Group justify="center" wrap="wrap" gap="xl" className="footer-links" mt={15}>
           <Anchor href="#story">Our Story</Anchor>
           <Anchor href="#celebration">Details</Anchor>
           <Anchor href="#gallery">Gallery</Anchor>
           <Anchor href="#rsvp">RSVP</Anchor>
         </Group>
         </Flex>
+        
 
         <Flex direction={'column'} gap={5} align="center">
           <Text className="footer-thanks">
-            Thank you for being a part of our beginning.
+            Thank you for being a part of our beginning!
           </Text>
 
           <Text className="footer-copyright">Made by Dos · 2026</Text>

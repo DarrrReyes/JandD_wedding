@@ -5,6 +5,7 @@ import {
   Burger,
   Container,
   Drawer,
+  Flex,
   Grid,
   Group,
   SimpleGrid,
@@ -140,7 +141,7 @@ export default function WeddingInvitation() {
     { label: "The Proposal, 2023" },
   ];
   // RSVP
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(true);
 
   const form = useForm<RSVPFormValues>({
     initialValues: {
@@ -446,16 +447,17 @@ export default function WeddingInvitation() {
             ))}
           </Box>
 
-          <Stack
+          <Flex
+          direction={'column'}
             className="section-heading"
-            gap="xs"
-            mt={"xl"}
+            gap="10px"
+            mt={"50px"}
             data-aos="fade-up"
           >
             <Text className="section-title">Attire & Colors</Text>
 
             <Box className="gold-divider" />
-          </Stack>
+          </Flex>
 
           <Box className="dress-swatches">
             {dressSwatches.map((swatch, index) => (
@@ -531,3 +533,8 @@ export default function WeddingInvitation() {
     </>
   );
 }
+
+
+// TooltTip in color attire
+// RSVP Spacing 
+// Find line element for background 
