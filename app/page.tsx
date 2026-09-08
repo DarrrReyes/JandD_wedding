@@ -102,7 +102,6 @@ export default function WeddingInvitation() {
   ];
   // Story
 
-
   // DressCode
   const dressSwatches = [
     {
@@ -115,22 +114,13 @@ export default function WeddingInvitation() {
       //   </Text>
       // ),
       dressCode: [
-        { color: "#eadac1", delay: 100 },
-        { color: "#dcc39a", delay: 200 },
-        { color: "#0b122f", delay: 400 },
-        { color: "#191c4c", delay: 500 },
-        { color: "#252f6a", delay: 600 },
+        { color: "#eadac1", name: "Champagne Beige", delay: 100 },
+        { color: "#dcc39a", name: "Warm Gold", delay: 200 },
+        { color: "#0b122f", name: "Midnight Navy", delay: 400 },
+        { color: "#191c4c", name: "Deep Navy", delay: 500 },
+        { color: "#252f6a", name: "Royal Blue", delay: 600 },
       ],
     },
-    // {
-    //   to: "Ladies",
-    //   image: <IconWoman />,
-    //   dressCode: [
-    //     { color: "#0b122f", delay: 400 },
-    //     { color: "#191c4c", delay: 500 },
-    //     { color: "#252f6a", delay: 600 },
-    //   ],
-    // },
   ];
   // Gallery
   const galleryItems = [
@@ -141,7 +131,7 @@ export default function WeddingInvitation() {
     { label: "The Proposal, 2023" },
   ];
   // RSVP
-  const [submitted, setSubmitted] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<RSVPFormValues>({
     initialValues: {
@@ -448,7 +438,7 @@ export default function WeddingInvitation() {
           </Box>
 
           <Flex
-          direction={'column'}
+            direction={"column"}
             className="section-heading"
             gap="10px"
             mt={"50px"}
@@ -515,7 +505,9 @@ export default function WeddingInvitation() {
               Kindly Reply By November 1st
             </Text>
 
-            <Text className="section-title">RSVP</Text>
+            <Text className="section-title" style={{ letterSpacing: "8px" }}>
+              RSVP
+            </Text>
 
             <Box className="gold-divider" />
           </Stack>
@@ -534,7 +526,6 @@ export default function WeddingInvitation() {
   );
 }
 
-
-// TooltTip in color attire
-// RSVP Spacing 
-// Find line element for background 
+// TooltTip in color attire - 
+// RSVP Spacing -
+// Find line element for background

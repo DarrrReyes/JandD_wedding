@@ -1124,6 +1124,34 @@ nav.scrolled {
   color: #fff;
 }
 
+
+/* Dress Code Tooltip */
+.dress-code-tooltip {
+  background-color: #252f6a !important;
+  color: #d4af37 !important;
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Tooltip arrow */
+.dress-code-tooltip[data-arrow]::before {
+  border-top-color: #252f6a !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .dress-code-tooltip {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    letter-spacing: 0.3px;
+  }
+}
+
 /* ===========================
    Tablet
 =========================== */
@@ -1334,6 +1362,10 @@ nav.scrolled {
 }
 
 /* RSVP */
+
+
+
+
 .rsvp-section {
   background: linear-gradient(135deg, #0a1526 0%, #0e2040 100%);
   padding: 120px 0;

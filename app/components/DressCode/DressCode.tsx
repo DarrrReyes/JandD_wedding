@@ -1,4 +1,4 @@
-import { Box, Group, Stack, Text } from "@mantine/core";
+import { Box, Group, Stack, Text, Tooltip } from "@mantine/core";
 import { ReactNode } from "react";
 
 interface DressCodeProps {
@@ -6,6 +6,7 @@ interface DressCodeProps {
   // image?: ReactNode;
   dressCode: {
     color: string;
+    name: string
     delay: number;
   }[];
 }
@@ -32,16 +33,25 @@ export function DressCode({  dressCode }: DressCodeProps) {
 
       <Group gap="xs" justify="center">
         {dressCode.map((item, index) => (
-          <Box
+            <Tooltip
             key={index}
-            className="swatch-color"
-            data-aos="zoom-in"
-            data-aos-delay={item.delay}
-            style={{
-              backgroundColor: item.color,
-              margin: "0 auto",
+            label={item.name}
+            withArrow
+            position="top"
+            classNames={{
+              tooltip: "dress-code-tooltip",
             }}
-          />
+          >
+            <Box
+              className="swatch-color"
+              data-aos="zoom-in"
+              data-aos-delay={item.delay}
+              style={{
+                backgroundColor: item.color,
+                margin: "0 auto",
+              }}
+            />
+          </Tooltip>
         ))}
       </Group>
     </Stack>
