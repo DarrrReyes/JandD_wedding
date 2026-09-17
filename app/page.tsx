@@ -255,8 +255,8 @@ export default function WeddingInvitation() {
           ${scrollY * (isMobile ? 0.08 : 0.2)}px,
           0
         )`,
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2000&q=80)",
+            backgroundImage: `url(${process.env.NEXT_PUBLIC_HERO_BG})`,
+            // backgroundSize: "cover",
           }}
         />
 
@@ -526,6 +526,6 @@ export default function WeddingInvitation() {
   );
 }
 
-// TooltTip in color attire - 
+// TooltTip in color attire -
 // RSVP Spacing -
 // Find line element for background
