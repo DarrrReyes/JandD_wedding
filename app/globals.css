@@ -94,7 +94,7 @@ section {
   letter-spacing: 8px;
   /* letter-spacing: 4px; */
   text-transform: uppercase;
-  color: var(--gold-light); 
+  color: var(--gold-light);
   margin: 16px;
   font-weight: 300;
 }
@@ -154,9 +154,13 @@ nav.scrolled {
 ========================= */
 
 .nav-logo {
-  font-family: "Great Vibes", cursive;
+  /* font-family: "Great Vibes", cursive;
   font-size: 28px;
-  color: var(--gold);
+  color: var(--gold); */
+  align-self: center;
+  justify-self: center;
+  width: 45px;
+  height: 40px;
 }
 
 /* =========================
@@ -190,9 +194,19 @@ nav.scrolled {
     padding: 16px 20px;
   }
 
-  /* keep logo centered visually balanced */
   .nav-logo {
+    align-self: center;
+    justify-self: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  /* keep logo centered visually balanced */
+  .nav-logo-drawer {
     font-size: 24px;
+    align-self: center;
+    width: 120px;
+    height: 110px;
   }
 
   /* hide desktop links (already handled, but safe) */
@@ -281,13 +295,14 @@ nav.scrolled {
   /* Make drawer feel full-screen + immersive */
   .app-drawer-content {
     width: 100% !important;
+    /* height: 98% !important; */
     padding: 24px;
   }
 
   /* Center menu vertically with better spacing */
   .app-drawer-body {
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 32px;
   }
 
@@ -438,6 +453,7 @@ nav.scrolled {
   z-index: 3;
 
   text-align: center;
+
 }
 
 /* =========================
@@ -558,9 +574,11 @@ nav.scrolled {
     display: none;
   }
 
-  .nav-logo {
+  /* .nav-logo {
     font-size: 18px;
-  }
+    width: 50px;
+    height: 50px;
+  } */
 
   section {
     padding: 60px 0;
@@ -605,11 +623,7 @@ nav.scrolled {
   ========================= */
 
   .hero-title {
-    font-size: clamp(
-      56px,
-      18vw,
-      70px
-    ) !important;
+    font-size: clamp(56px, 18vw, 70px) !important;
 
     line-height: 0.95;
   }
@@ -913,7 +927,7 @@ nav.scrolled {
 }
 
 .card-type {
-   /* font-family: "Cormorant Garamond", serif; */
+  /* font-family: "Cormorant Garamond", serif; */
   margin: 0 0 24px;
   font-size: 10px;
   letter-spacing: 4px;
@@ -930,7 +944,6 @@ nav.scrolled {
   font-style: italic;
   line-height: 1.2;
 }
-
 
 .card-details {
   font-family: "Cormorant Garamond", serif;
@@ -954,7 +967,6 @@ nav.scrolled {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.5px;
-
 }
 
 .detail-content {
@@ -1041,7 +1053,6 @@ nav.scrolled {
     font-size: clamp(24px, 8vw, 32px);
   }
 
-
   /* FOR DETAILS CELEBRATION */
   .card-details {
     margin-top: 20px;
@@ -1124,17 +1135,16 @@ nav.scrolled {
   color: #fff;
 }
 
-
 /* Dress Code Tooltip */
 .dress-code-tooltip {
   background-color: #252f6a !important;
   color: #d4af37 !important;
   font-family: "Cormorant Garamond", serif !important;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
 }
 
 /* Tooltip arrow */
@@ -1145,10 +1155,28 @@ nav.scrolled {
 /* Mobile */
 @media (max-width: 768px) {
   .dress-code-tooltip {
-    font-size: 14px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    letter-spacing: 0.3px;
+    font-size: 14px !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  .dress-code-tooltip[data-arrow]::before {
+    border-top-color: #252f6a !important;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .dress-code-tooltip {
+    font-size: 14px !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  .dress-code-tooltip[data-arrow]::before {
+    border-top-color: #252f6a !important;
   }
 }
 
@@ -1363,9 +1391,6 @@ nav.scrolled {
 
 /* RSVP */
 
-
-
-
 .rsvp-section {
   background: linear-gradient(135deg, #0a1526 0%, #0e2040 100%);
   padding: 120px 0;
@@ -1440,7 +1465,7 @@ nav.scrolled {
   border: none;
 
   /* background: #e8cc6a; */
-   /* linear-gradient(
+  /* linear-gradient(
     135deg,
     var(--gold-dark),
     var(--gold),
@@ -1677,4 +1702,3 @@ section {
     transition: none !important;
   }
 }
-

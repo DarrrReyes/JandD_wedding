@@ -26,6 +26,7 @@ import RSVPCard from "./components/RSVPCard/RSVPCard";
 import StorySection from "./components/StorySection/StorySection";
 import { createGuest } from "@/action/guest";
 import { celebrationData } from "./data/celebration";
+import Image from "next/image";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -181,9 +182,9 @@ export default function WeddingInvitation() {
     <>
       {/* Nav */}
       <nav className={scrolled ? "scrolled" : ""}>
-        <Text component="a" href="#home" className="nav-logo">
-          J & D
-        </Text>
+        <a href="#home" className="nav-logo">
+          <img src={process.env.NEXT_PUBLIC_LOGO} alt="J & D" />
+        </a>
         {/* <Text className={"nav-logo"} >J & D</Text> */}
 
         <Group visibleFrom="md" className="nav-links">
@@ -213,32 +214,38 @@ export default function WeddingInvitation() {
           close: {
             backgroundColor: "transparent",
             color: "var(--gold)",
+            alignSelf:'center',
+            justifySelf: 'center'
           },
         }}
       >
-        <Stack gap="xl">
-          <Text
-            component="a"
-            href="#home"
-            className="nav-logo"
-            onClick={() => setOpened(false)}
-          >
-            J & D
-          </Text>
-
-          <Anchor href="#story" onClick={() => setOpened(false)}>
-            Our Story
-          </Anchor>
-          <Anchor href="#celebration" onClick={() => setOpened(false)}>
-            Details
-          </Anchor>
-          <Anchor href="#gallery" onClick={() => setOpened(false)}>
-            Gallery
-          </Anchor>
-          <Anchor href="#rsvp" onClick={() => setOpened(false)}>
-            RSVP
-          </Anchor>
-        </Stack>
+        <Flex direction={"column"} gap={"70px"}>
+          <Flex direction={"column"}>
+            <a
+              href="#home"
+              className="nav-logo-drawer"
+              onClick={() => setOpened(false)}
+            >
+              <img src={process.env.NEXT_PUBLIC_LOGO} alt="J & D" />
+            </a>
+          </Flex>
+          <Stack gap={"xl"}>
+            <Flex direction={"column"} gap={10}>
+              <Anchor href="#story" onClick={() => setOpened(false)}>
+                Our Story
+              </Anchor>
+              <Anchor href="#celebration" onClick={() => setOpened(false)}>
+                Details
+              </Anchor>
+              <Anchor href="#gallery" onClick={() => setOpened(false)}>
+                Gallery
+              </Anchor>
+              <Anchor href="#rsvp" onClick={() => setOpened(false)}>
+                RSVP
+              </Anchor>
+            </Flex>
+          </Stack>
+        </Flex>
       </Drawer>
 
       {/* Hero */}
@@ -273,7 +280,7 @@ export default function WeddingInvitation() {
         />
 
         {/* 📝 CONTENT */}
-        <Container size="sm" className="hero-content">
+        <Flex direction={'column'} gap={'10px'} className="hero-content" >
           <Text className="hero-title" ta="center">
             <span>Jasper</span>
             <span>&</span>
@@ -290,7 +297,7 @@ export default function WeddingInvitation() {
             Join us as we celebrate love, laughter, and the beginning of our
             forever.
           </Text>
-        </Container>
+        </Flex>
 
         {/* 👇 SCROLL INDICATOR */}
         {/* <Box className="scroll-indicator">
@@ -525,7 +532,3 @@ export default function WeddingInvitation() {
     </>
   );
 }
-
-// TooltTip in color attire -
-// RSVP Spacing -
-// Find line element for background
