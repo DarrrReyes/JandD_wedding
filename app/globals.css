@@ -28,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 
 body {
@@ -240,6 +241,7 @@ nav.scrolled {
   background: rgba(11, 26, 47, 0.98) !important;
   backdrop-filter: blur(10px);
   border-left: 1px solid rgba(212, 175, 55, 0.2);
+  scrollbar-width: none;
 }
 
 .mantine-Drawer-header {
