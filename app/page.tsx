@@ -124,13 +124,13 @@ export default function WeddingInvitation() {
     },
   ];
   // Gallery
-  const galleryItems = [
-    { label: "Edinburgh, 2017" },
-    { label: "Kyoto, 2019" },
-    { label: "Lisbon, 2021" },
-    { label: "Patagonia, 2022" },
-    { label: "The Proposal, 2023" },
-  ];
+ const galleryItems = [
+  { label: "Edinburgh, 2017", url: process.env.NEXT_PUBLIC_MOMENT_TWO },
+  { label: "Kyoto, 2019", url: process.env.NEXT_PUBLIC_MOMENT_ONE },
+  { label: "Lisbon, 2021", url: "https://example.com/images/lisbon.jpg" },
+  { label: "Patagonia, 2022", url: "https://example.com/images/patagonia.jpg" },
+  { label: "The Proposal, 2023", url: "https://example.com/images/proposal.jpg" },
+];
   // RSVP
   const [submitted, setSubmitted] = useState(false);
 
@@ -466,38 +466,39 @@ export default function WeddingInvitation() {
 
       {/* Gallery */}
       <Box component="section" id="gallery" className="gallery-section">
-        <Container size="lg">
-          <Stack
-            align="center"
-            gap={0}
-            className="section-heading"
-            data-aos="fade-up"
-          >
-            <Text component="span" className="sub-title-gold">
-              A Few Favourite Frames
-            </Text>
+  <Container size="lg">
+    <Stack
+      align="center"
+      gap={0}
+      className="section-heading"
+      data-aos="fade-up"
+    >
+      <Text component="span" className="sub-title-gold">
+        A Few Favourite Frames
+      </Text>
 
-            <Text className="section-title">Moments</Text>
+      <Text className="section-title">Moments</Text>
 
-            <Box className="gold-divider" />
-          </Stack>
+      <Box className="gold-divider" />
+    </Stack>
 
-          <Box className="gallery-grid">
-            {galleryItems.map(({ label }, i) => (
-              <Box
-                key={label}
-                className="gallery-item"
-                data-aos={i === 0 ? "fade-up" : "zoom-in"}
-                data-aos-delay={i * 80}
-              >
-                <Box className="gallery-placeholder">
-                  <Text className="gallery-label">{label}</Text>
-                </Box>
-              </Box>
-            ))}
+    <Box className="gallery-grid">
+      {galleryItems.map(({ label, url }, i) => (
+        <Box
+          key={label}
+          className="gallery-item"
+          data-aos={i === 0 ? "fade-up" : "zoom-in"}
+          data-aos-delay={i * 80}
+        >
+          <Box className="gallery-placeholder">
+            <img src={url} alt={label} className="gallery-image" />
+            {/* <Text className="gallery-label">{label}</Text> */}
           </Box>
-        </Container>
-      </Box>
+        </Box>
+      ))}
+    </Box>
+  </Container>
+</Box>
 
       {/* RSVP */}
       <Box component="section" id="rsvp" className="rsvp-section">
@@ -509,7 +510,7 @@ export default function WeddingInvitation() {
             data-aos="fade-up"
           >
             <Text component="span" className="sub-title-gold">
-              Kindly Reply By November 1st
+              Kindly Reply By October 31st
             </Text>
 
             <Text className="section-title" style={{ letterSpacing: "8px" }}>
