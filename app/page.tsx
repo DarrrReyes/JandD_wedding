@@ -124,13 +124,51 @@ export default function WeddingInvitation() {
     },
   ];
   // Gallery
- const galleryItems = [
-  { label: "Edinburgh, 2017", url: process.env.NEXT_PUBLIC_MOMENT_TWO },
-  { label: "Kyoto, 2019", url: process.env.NEXT_PUBLIC_MOMENT_ONE },
-  { label: "Lisbon, 2021", url: "https://example.com/images/lisbon.jpg" },
-  { label: "Patagonia, 2022", url: "https://example.com/images/patagonia.jpg" },
-  { label: "The Proposal, 2023", url: "https://example.com/images/proposal.jpg" },
-];
+  const galleryItems = [
+    {
+      label: "Edinburgh, 2017",
+      url: process.env.NEXT_PUBLIC_MOMENT_TWO,
+      position: "center 30%",
+    }, // shift up, e.g. subject is a rooftop/skyline
+    {
+      label: "Kyoto, 2019",
+      url: process.env.NEXT_PUBLIC_MOMENT_ONE,
+      position: "center 40%",
+    },
+    { label: "Lisbon, 2021", url: "...", position: "left center" }, // subject is off to one side
+    { label: "Patagonia, 2022", url: "...", position: "center" },
+    { label: "The Proposal, 2023", url: "...", position: "center 20%" }, // e.g. faces near top
+  ];
+
+  // FAQ
+  const faqData = [
+    // {
+    //   question: "What time should we arrive?",
+    //   answer:
+    //     "We recommend arriving at least 30 minutes before the ceremony begins so you have time to find your seat and settle in.",
+    // },
+    // {
+    //   question: "What is the dress code?",
+    //   answer:
+    //     "We're keeping it semi-formal with a touch of elegance. Please check the Attire & Colors section above for the palette we'd love to see on the day.",
+    // },
+    {
+      question: "Can I bring a plus one?",
+      answer:
+      "We’d love to celebrate with everyone, but due to limited capacity, we can only accommodate those formally invited. We sincerely appreciate your kind understanding."
+        // "To help us plan seating and catering accurately, we can only accommodate the guests named on your invitation. Thank you for understanding.",
+    },
+    // {
+    //   question: "Is parking available?",
+    //   answer:
+    //     "Yes, on-site parking will be available for all our guests. Directions and maps are included in the Celebration details above.",
+    // },
+    {
+      question: "Do you have a gift registry?",
+      answer:
+        "Your love and presence are all we ask for. Gifts are not expected but for those who wish, we graciously prefer monetary gifts",
+    },
+  ];
   // RSVP
   const [submitted, setSubmitted] = useState(false);
 
@@ -214,8 +252,8 @@ export default function WeddingInvitation() {
           close: {
             backgroundColor: "transparent",
             color: "var(--gold)",
-            alignSelf:'center',
-            justifySelf: 'center'
+            alignSelf: "center",
+            justifySelf: "center",
           },
         }}
       >
@@ -280,7 +318,7 @@ export default function WeddingInvitation() {
         />
 
         {/* 📝 CONTENT */}
-        <Flex direction={'column'} gap={'10px'} className="hero-content" >
+        <Flex direction={"column"} gap={"10px"} className="hero-content">
           <Text className="hero-title" ta="center">
             <span>Jasper</span>
             <span>&</span>
@@ -289,7 +327,7 @@ export default function WeddingInvitation() {
 
           <Box className="gold-divider" />
 
-          <Text className="sub-title-gold" ta="center">
+          <Text className="hero-sub-title-date" ta="center">
             December 1st, 2026
           </Text>
 
@@ -298,12 +336,6 @@ export default function WeddingInvitation() {
             forever.
           </Text>
         </Flex>
-
-        {/* 👇 SCROLL INDICATOR */}
-        {/* <Box className="scroll-indicator">
-      <Text>Scroll</Text>
-      <Box className="scroll-line" />
-    </Box> */}
       </Box>
 
       {/* Countdown */}
@@ -466,39 +498,78 @@ export default function WeddingInvitation() {
 
       {/* Gallery */}
       <Box component="section" id="gallery" className="gallery-section">
-  <Container size="lg">
-    <Stack
-      align="center"
-      gap={0}
-      className="section-heading"
-      data-aos="fade-up"
-    >
-      <Text component="span" className="sub-title-gold">
-        A Few Favourite Frames
-      </Text>
+        <Container size="lg">
+          <Stack
+            align="center"
+            gap={0}
+            className="section-heading"
+            data-aos="fade-up"
+          >
+            <Text component="span" className="sub-title-gold">
+              A Few Favourite Frames
+            </Text>
 
-      <Text className="section-title">Moments</Text>
+            <Text className="section-title">Moments</Text>
 
-      <Box className="gold-divider" />
-    </Stack>
+            <Box className="gold-divider" />
+          </Stack>
 
-    <Box className="gallery-grid">
-      {galleryItems.map(({ label, url }, i) => (
-        <Box
-          key={label}
-          className="gallery-item"
-          data-aos={i === 0 ? "fade-up" : "zoom-in"}
-          data-aos-delay={i * 80}
-        >
-          <Box className="gallery-placeholder">
-            <img src={url} alt={label} className="gallery-image" />
-            {/* <Text className="gallery-label">{label}</Text> */}
+          <Box className="gallery-grid">
+            {galleryItems.map(({ label, url, position }, i) => (
+              <Box
+                key={label}
+                className="gallery-item"
+                data-aos={i === 0 ? "fade-up" : "zoom-in"}
+                data-aos-delay={i * 80}
+              >
+                <Box className="gallery-placeholder">
+                  <img
+                    src={url}
+                    alt={label}
+                    className="gallery-image"
+                    style={{ objectPosition: position || "center" }}
+                  />
+                  {/* <Text className="gallery-label">{label}</Text> */}
+                </Box>
+              </Box>
+            ))}
           </Box>
-        </Box>
-      ))}
-    </Box>
-  </Container>
-</Box>
+        </Container>
+      </Box>
+
+      {/* FAQ */}
+      <Box component="section" id="faq" className="faq-section">
+        <Container size="lg">
+          <Stack
+            align="center"
+            gap={0}
+            className="section-heading"
+            data-aos="fade-up"
+          >
+            <Text component="span" className="sub-title-gold">
+              Everything You Need To Know
+            </Text>
+
+            <Text className="section-title">FAQs</Text>
+
+            <Box className="gold-divider" />
+          </Stack>
+
+          <Box className="faq-list">
+            {faqData.map((item, i) => (
+              <Box
+                key={item.question}
+                className="faq-item"
+                data-aos="fade-up"
+                data-aos-delay={i * 80}
+              >
+                <Text className="faq-question">{item.question}</Text>
+                <Text className="faq-answer">{item.answer}</Text>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+      </Box>
 
       {/* RSVP */}
       <Box component="section" id="rsvp" className="rsvp-section">

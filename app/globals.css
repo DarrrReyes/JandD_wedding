@@ -80,15 +80,6 @@ section {
   padding: 0 24px;
 }
 
-/* .eyebrow {
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 16px;
-  display: block;
-} */
-
 .sub-title-gold {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(14px, 3vw, 20px);
@@ -377,6 +368,17 @@ nav.scrolled {
   color: white;
 }
 
+.hero-sub-title-date {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(14px, 3vw, 20px);
+  letter-spacing: 8px;
+  /* letter-spacing: 4px; */
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin: 16px;
+  font-weight: 300;
+}
+
 /* =========================
    BASE BLUE BACKGROUND
 ========================= */
@@ -414,7 +416,7 @@ nav.scrolled {
   background-position: center;
   background-repeat: no-repeat;
 
-  filter: brightness(0.75);
+  filter: brightness(0.55);
 
   will-change: transform;
 
@@ -455,7 +457,6 @@ nav.scrolled {
   z-index: 3;
 
   text-align: center;
-
 }
 
 /* =========================
@@ -465,9 +466,10 @@ nav.scrolled {
 .hero-title {
   font-family: var(--font-great-vibes);
 
-  font-size: clamp(72px, 14vw, 80px) !important;
+  font-size: clamp(72px, 14vw, 105px) !important;
 
   line-height: 1;
+  /* color: var(--gold-light); */
 }
 
 /*
@@ -500,55 +502,10 @@ nav.scrolled {
 }
 
 /* =========================
-   SCROLL INDICATOR
-========================= */
-
-/* .scroll-indicator {
-  position: absolute;
-
-  bottom: 40px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 8px;
-
-  z-index: 3;
-
-  opacity: 0.5;
-
-  font-size: 10px;
-
-  letter-spacing: 3px;
-
-  text-transform: uppercase;
-
-  animation: fadeFloat 2s ease-in-out infinite;
-}
-
-.scroll-line {
-  width: 1px;
-
-  height: 40px;
-
-  background: linear-gradient(
-    to bottom,
-    var(--gold),
-    transparent
-  );
-} */
-
-/* =========================
    SCROLL ANIMATION
 ========================= */
 
-@keyframes fadeFloat {
+/* @keyframes fadeFloat {
   0%,
   100% {
     transform: translateX(-50%) translateY(0);
@@ -561,7 +518,7 @@ nav.scrolled {
 
     opacity: 0.8;
   }
-}
+} */
 
 /* =========================
    MOBILE
@@ -584,11 +541,6 @@ nav.scrolled {
 
   section {
     padding: 60px 0;
-  }
-
-  /* Hide scroll indicator on mobile */
-  .scroll-indicator {
-    display: none;
   }
 
   /* =========================
@@ -651,6 +603,10 @@ nav.scrolled {
   ========================= */
 
   .sub-title-gold {
+    letter-spacing: 4px;
+  }
+
+  .hero-sub-title-date {
     letter-spacing: 4px;
   }
 
@@ -864,6 +820,7 @@ nav.scrolled {
 
 /* Celebration Section */
 
+/* Map links (used inside Celebration cards) */
 .map-link {
   position: relative;
   display: block;
@@ -1168,7 +1125,6 @@ nav.scrolled {
   }
 }
 
-
 @media (max-width: 480px) {
   .dress-code-tooltip {
     font-size: 14px !important;
@@ -1295,7 +1251,7 @@ nav.scrolled {
 
 .gallery-item {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 2px;
 }
 
@@ -1312,8 +1268,14 @@ nav.scrolled {
 
   background: linear-gradient(135deg, #132440 0%, #1a3560 100%);
 
-  border: 1px solid rgba(212, 175, 55, 0.08);
-  transition: transform 0.4s ease, border-color 0.4s ease;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 2px;
+
+  /* Floating effect, visible at rest */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 24px rgba(228, 188, 56, 0.18),
+    0 0 0 1px rgba(226, 186, 56, 0.1);
+
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
   overflow: hidden;
 }
 
@@ -1331,27 +1293,47 @@ nav.scrolled {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center; /* default */
   display: block;
   z-index: 0;
+  transition: transform 0.6s ease;
+  filter: brightness(0.97);
 }
 
+/* Light bluish tint — tints without darkening/covering */
+.gallery-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    /* rgba(70, 120, 200, 0.22) 0%, */ /* rgba(100, 150, 220, 0.12) 50%, */
+      rgba(70, 120, 200, 0.22) 100%
+  );
+  mix-blend-mode: overlay;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Small bottom fade just enough for caption legibility */
 .gallery-placeholder::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(6, 12, 24, 0.75) 0%,
-    rgba(6, 12, 24, 0.15) 45%,
-    rgba(6, 12, 24, 0) 70%
+    rgba(6, 12, 24, 0.6) 0%,
+    rgba(6, 12, 24, 0.1) 35%,
+    rgba(6, 12, 24, 0) 60%
   );
-  z-index: 1;
-  transition: opacity 0.4s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .gallery-label {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding: 16px;
   text-align: center;
 
@@ -1365,16 +1347,18 @@ nav.scrolled {
 }
 
 .gallery-item:hover .gallery-placeholder {
-  transform: scale(1.02);
-  border-color: rgba(212, 175, 55, 0.2);
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.45), 0 0 36px rgba(212, 175, 55, 0.3),
+    0 0 0 1px rgba(212, 175, 55, 0.25);
 }
 
 .gallery-item:hover .gallery-image {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .gallery-item:hover .gallery-label {
-  color: rgba(212, 175, 55, 1);
+  color: var(--gold-light, #e8cc6a);
 }
 
 /* ==========================================
@@ -1420,6 +1404,67 @@ nav.scrolled {
 
   .gallery-label {
     font-size: 24px;
+  }
+}
+
+/* FAQ Section */
+.faq-section {
+  background: linear-gradient(135deg, #0d2040 0%, #0b1a2f 50%, #0a1628 100%);
+  padding: 120px 0;
+}
+
+.faq-list {
+  max-width: 760px;
+  margin: 64px auto 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.faq-question {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 400;
+  color: var(--gold-light);
+  margin-bottom: 10px;
+}
+
+.faq-answer {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 80px 0;
+  }
+
+  .faq-list {
+    margin-top: 48px;
+  }
+
+  .faq-item {
+    padding: 22px 0;
+  }
+
+  .faq-question {
+    font-size: 17px;
+  }
+
+  .faq-answer {
+    font-size: 14px;
+    line-height: 1.8;
   }
 }
 

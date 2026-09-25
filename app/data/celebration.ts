@@ -20,7 +20,7 @@ export const celebrationData = [
     venue: "Casa Miguel Events Place",
     location: "Casa Miguel Events Place",
     img: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn87VU_-zDP_vxpVbtBQIISAYkBNM3-zRCcQk8OFwJR-H_vR1DGwcOIb9kKL2xWSz9BvuM5jtof8oWr6snmitwz8oGbUzH_KA9Zou3u_fk86nDNZeWKvj9slKGAy5wVDUBAWW0x8ccFqzBK=w408-h544-k-no",
-    remarks: "(The parking will be in the street)",
+    remarks: "Guests may avail themselves of street parking available along the road adjacent to the venue.",
     details: ["Phase 1 Blk 9 Lot 16, Metrogate II Jao st, Marilao, Bulacan"],
     aosDelay: 200,
   },
