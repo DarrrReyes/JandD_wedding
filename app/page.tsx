@@ -27,6 +27,7 @@ import StorySection from "./components/StorySection/StorySection";
 import { createGuest } from "@/action/guest";
 import { celebrationData } from "./data/celebration";
 import Image from "next/image";
+import { entourage } from "./data/entourage";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -155,8 +156,8 @@ export default function WeddingInvitation() {
     {
       question: "Can I bring a plus one?",
       answer:
-      "We’d love to celebrate with everyone, but due to limited capacity, we can only accommodate those formally invited. We sincerely appreciate your kind understanding."
-        // "To help us plan seating and catering accurately, we can only accommodate the guests named on your invitation. Thank you for understanding.",
+        "We’d love to celebrate with everyone, but due to limited capacity, we can only accommodate those formally invited. We sincerely appreciate your kind understanding."
+      // "To help us plan seating and catering accurately, we can only accommodate the guests named on your invitation. Thank you for understanding.",
     },
     // {
     //   question: "Is parking available?",
@@ -533,6 +534,224 @@ export default function WeddingInvitation() {
                 </Box>
               </Box>
             ))}
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Entourage */}
+      <Box component="section" className="entourage-section" id="entourage">
+        <Container size="lg">
+          <Stack
+            align="center"
+            gap={0}
+            className="section-heading"
+            data-aos="fade-up"
+          >
+            <Text component="span" className="sub-title-gold">
+              With Love &amp; Gratitude
+            </Text>
+
+            <Text className="section-title">The Entourage</Text>
+
+            <Box className="gold-divider" />
+          </Stack>
+
+          <Box
+            className="entourage-single-card"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <img
+              src={process.env.NEXT_PUBLIC_ENTOURAGE_FLOWERS}
+              alt=""
+              className="entourage-flower entourage-flower-top"
+            />
+            <img
+              src={process.env.NEXT_PUBLIC_ENTOURAGE_FLOWERS}
+              alt=""
+              className="entourage-flower entourage-flower-bottom"
+            />
+
+            <Box className="entourage-card-body">
+              {/* Groom & Bride + Nuptials */}
+              {/* NOTE REMOVE CLOUDE */}
+              <Box className="entourage-couple-names">
+                <Text component="span" className="entourage-name">
+                  {entourage.groom}
+                </Text>
+                <Text component="span" className="entourage-couple-amp">
+                  &amp;
+                </Text>
+                <Text component="span" className="entourage-name">
+                  {entourage.bride}
+                </Text>
+                <Text className="entourage-nuptials">Nuptials</Text>
+              </Box>
+
+              {/* Our Parents */}
+              <Box className="entourage-block" data-aos="fade-up">
+                <Text className="entourage-block-header">Our Parents</Text>
+                <Box className="entourage-two-col">
+                  <Box className="entourage-col-left">
+                    <Text className="entourage-col-center-label">
+                      Parents of the Groom
+                    </Text>
+                    {entourage.parentsOfGroom.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                  <Box className="entourage-col-right">
+                    <Text className="entourage-col-center-label">
+                      Parents of the Bride
+                    </Text>
+                    {entourage.parentsOfBride.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box className="gold-divider entourage-divider" />
+
+              {/* Principal Sponsors */}
+              <Box className="entourage-block" data-aos="fade-up">
+                <Text className="entourage-block-header">Principal Sponsors</Text>
+                <Box className="entourage-two-col">
+                  <Box className="entourage-col-left">
+                    {entourage.principalSponsorsMen.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                  <Box className="entourage-col-right">
+                    {entourage.principalSponsorsWomen.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box className="gold-divider entourage-divider" />
+
+              {/* Best Man / Maid of Honor */}
+              <Box className="entourage-block" data-aos="fade-up">
+                <Box className="entourage-two-col">
+                  <Box className="entourage-col-left">
+                    <Text className="entourage-col-center-label">Best Man</Text>
+                    <Text className="entourage-name">{entourage.bestMan}</Text>
+                  </Box>
+                  <Box className="entourage-col-right">
+                    <Text className="entourage-col-center-label">Maid of Honor</Text>
+                    <Text className="entourage-name">{entourage.maidOfHonor}</Text>
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box className="gold-divider entourage-divider" />
+
+              {/* Flower Girls */}
+              <Box
+                className="entourage-block entourage-center-list"
+                data-aos="fade-up"
+              >
+                <Text className="entourage-block-header">Flower Girls</Text>
+                {entourage.flowerGirls.map((n) => (
+                  <Text key={n} className="entourage-name">
+                    {n}
+                  </Text>
+                ))}
+              </Box>
+
+              <Box className="gold-divider entourage-divider" />
+
+              {/* Coin Bearer / Bible Bearer / Ring Bearer */}
+              <Box className="entourage-block" data-aos="fade-up">
+                <Box className="entourage-two-col">
+                  <Box className="entourage-col-left">
+                    <Text className="entourage-col-center-label">Coin Bearer</Text>
+                    <Text className="entourage-name">{entourage.coinBearer}</Text>
+                  </Box>
+                  <Box className="entourage-col-right">
+                    <Text className="entourage-col-center-label">Bible Bearer</Text>
+                    <Text className="entourage-name">{entourage.bibleBearer}</Text>
+                  </Box>
+                </Box>
+                <Box className="entourage-center-list" mt={24}>
+                  <Text className="entourage-col-center-label">Ring Bearer</Text>
+                  <Text className="entourage-name">{entourage.ringBearer}</Text>
+                </Box>
+              </Box>
+
+              <Box className="gold-divider entourage-divider" />
+
+              {/* Groomsmen / Bridesmaids */}
+              <Box className="entourage-block" data-aos="fade-up">
+                <Box className="entourage-two-col">
+                  <Box className="entourage-col-left">
+                    <Text className="entourage-col-center-label">Groomsmen</Text>
+                  </Box>
+                  <Box className="entourage-col-right">
+                    <Text className="entourage-col-center-label">Bridesmaids</Text>
+                  </Box>
+                </Box>
+                <Box className="entourage-two-col entourage-two-col-tight">
+                  <Box className="entourage-col-left">
+                    {entourage.groomsmen.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                  <Box className="entourage-col-right">
+                    {entourage.bridesmaids.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box className="gold-divider entourage-divider" />
+
+              {/* Secondary Sponsors */}
+              <Box className="entourage-block" data-aos="fade-up">
+                <Text className="entourage-block-header">Secondary Sponsors</Text>
+                <Box className="entourage-two-col">
+                  <Box className="entourage-col-left">
+                    <Text className="entourage-col-center-label">Candle</Text>
+                    {entourage.candle.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                  <Box className="entourage-col-right">
+                    <Text className="entourage-col-center-label">Veil</Text>
+                    {entourage.veil.map((n) => (
+                      <Text key={n} className="entourage-name entourage-list-name">
+                        {n}
+                      </Text>
+                    ))}
+                  </Box>
+                </Box>
+                <Box className="entourage-center-list" mt={24}>
+                  <Text className="entourage-col-center-label">Cord</Text>
+                  {entourage.cord.map((n) => (
+                    <Text key={n} className="entourage-name entourage-list-name">
+                      {n}
+                    </Text>
+                  ))}
+                </Box>
+              </Box>
+            </Box>
           </Box>
         </Container>
       </Box>
