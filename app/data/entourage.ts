@@ -26,10 +26,8 @@ export const entourage = {
   bestMan: "Jeffrey",
   maidOfHonor: "Dhapnie Jane",
   flowerGirls: [
-    "Desharin Hope Iblasin",
-    "Maria Jemilia Faith Andrada",
-    "Alleiah Crezzelle Andrada",
-    "Alyhanna Andrada",
+    "Alleiah Crezzelle Andrada - Alyhanna Andrada",
+    "Desharin Hope Iblasin - Maria Jemilia Faith Andrad",
   ],
   coinBearer: "Sameeh",
   bibleBearer: "Ashton Cloud",
