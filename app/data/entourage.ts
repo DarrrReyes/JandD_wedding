@@ -1,6 +1,6 @@
 export const entourage = {
   groom: "Jasper",
-  bride: "Ma Daniella Jascelle",
+  bride: "Daniella",
   parentsOfGroom: ["Zoriada", "Joe Marie"],
   parentsOfBride: ["Teresa", "Darwin"],
   principalSponsorsMen: [
@@ -26,8 +26,10 @@ export const entourage = {
   bestMan: "Jeffrey",
   maidOfHonor: "Dhapnie Jane",
   flowerGirls: [
-    "Alleiah Crezzelle Andrada - Alyhanna Andrada",
-    "Desharin Hope Iblasin - Maria Jemilia Faith Andrad",
+    "Desharin Hope Iblasin",
+    "Maria Jemilia Faith Andrada",
+    "Alleiah Crezzelle Andrada",
+    "Alyhanna Andrada",
   ],
   coinBearer: "Sameeh",
   bibleBearer: "Ashton Cloud",
