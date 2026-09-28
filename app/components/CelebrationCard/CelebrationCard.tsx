@@ -94,9 +94,6 @@ export function CelebrationCard({
         </Box>
       </Stack>
 
-      {/* <Box className="card-footer">
-        <Text className="card-description">{description}</Text>
-      </Box> */}
     </Box>
   );
 }

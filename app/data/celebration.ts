@@ -10,7 +10,7 @@ export const celebrationData = [
     img: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmO_jegwCSKz7LGJGxkv6qpfl5k85aTieM9cVpvWr9kFMTlvAv6y32kUNm-YaPQ_aNmFICN6SopS4lb0FpVTYc5mHJBxsiFgOoqZwO_YyCMlMcRZ_iWjkBUcCjXiYBsilQSnxcMVg=w408-h543-k-no",
     remarks:
       "For members of the entourage, please be at the church 30 minutes (1:30 PM) before the ceremony",
-    details: ["17 El Camino Real, Meycauayan, Bulacan", " "],
+    details: ["Sto. Niño Parish, 17 El Camino Real, Meycauayan, Bulacan"],
     aosDelay: 100,
   },
   {

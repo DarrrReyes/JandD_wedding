@@ -26,8 +26,10 @@ import RSVPCard from "./components/RSVPCard/RSVPCard";
 import StorySection from "./components/StorySection/StorySection";
 import { createGuest } from "@/action/guest";
 import { celebrationData } from "./data/celebration";
-import Image from "next/image";
 import { entourage } from "./data/entourage";
+import { dressSwatches } from "./data/dresscode";
+import { faqData } from "./data/faq";
+import { galleryItems } from "./data/gallery";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -103,73 +105,11 @@ export default function WeddingInvitation() {
     { value: seconds, label: "Seconds" },
   ];
   // Story
-
-  // DressCode
-  const dressSwatches = [
-    {
-      // to: "Guest",
-      // image: (
-      //   <Text className="footer-thanks" ta="center">
-      //     We kindly encourage our guests to choose from our wedding color
-      //     palette. Whether you wear one shade or mix and match, we’d love to see
-      //     you bring these colors to life on our special day.
-      //   </Text>
-      // ),
-      dressCode: [
-        { color: "#eadac1", name: "Champagne Beige", delay: 100 },
-        { color: "#dcc39a", name: "Warm Gold", delay: 200 },
-        { color: "#0b122f", name: "Midnight Navy", delay: 400 },
-        { color: "#191c4c", name: "Deep Navy", delay: 500 },
-        { color: "#252f6a", name: "Royal Blue", delay: 600 },
-      ],
-    },
-  ];
-  // Gallery
-  const galleryItems = [
-    {
-      label: "Edinburgh, 2017",
-      url: process.env.NEXT_PUBLIC_MOMENT_TWO,
-      position: "center 30%",
-    }, // shift up, e.g. subject is a rooftop/skyline
-    {
-      label: "Kyoto, 2019",
-      url: process.env.NEXT_PUBLIC_MOMENT_ONE,
-      position: "center 40%",
-    },
-    { label: "Lisbon, 2021", url: "...", position: "left center" }, // subject is off to one side
-    { label: "Patagonia, 2022", url: "...", position: "center" },
-    { label: "The Proposal, 2023", url: "...", position: "center 20%" }, // e.g. faces near top
+  const storyImages = [
+    { label: "Jasper & Daniella FOREVER", url: process.env.NEXT_PUBLIC_STORY_ONE, position: "center" },
+    { label: "Jasper & Daniella HSH", url: process.env.NEXT_PUBLIC_STORY_TWO, position: "center" },
   ];
 
-  // FAQ
-  const faqData = [
-    // {
-    //   question: "What time should we arrive?",
-    //   answer:
-    //     "We recommend arriving at least 30 minutes before the ceremony begins so you have time to find your seat and settle in.",
-    // },
-    // {
-    //   question: "What is the dress code?",
-    //   answer:
-    //     "We're keeping it semi-formal with a touch of elegance. Please check the Attire & Colors section above for the palette we'd love to see on the day.",
-    // },
-    {
-      question: "Can I bring a plus one?",
-      answer:
-        "We’d love to celebrate with everyone, but due to limited capacity, we can only accommodate those formally invited. We sincerely appreciate your kind understanding.",
-      // "To help us plan seating and catering accurately, we can only accommodate the guests named on your invitation. Thank you for understanding.",
-    },
-    // {
-    //   question: "Is parking available?",
-    //   answer:
-    //     "Yes, on-site parking will be available for all our guests. Directions and maps are included in the Celebration details above.",
-    // },
-    {
-      question: "Do you have a gift registry?",
-      answer:
-        "Your love and presence are all we ask for. Gifts are not expected but for those who wish, we graciously prefer monetary gifts",
-    },
-  ];
   // RSVP
   const [submitted, setSubmitted] = useState(false);
 
@@ -201,7 +141,6 @@ export default function WeddingInvitation() {
       console.error("Error:", error);
     }
   });
-  // Footer
 
   useEffect(() => {
     const handleScroll = () => {
@@ -230,6 +169,8 @@ export default function WeddingInvitation() {
           <Anchor href="#story">Our Story</Anchor>
           <Anchor href="#celebration">Details</Anchor>
           <Anchor href="#gallery">Gallery</Anchor>
+          <Anchor href="#entourage">Entourage</Anchor>
+          <Anchor href="#faq">FAQ</Anchor>
           <Anchor href="#rsvp">RSVP</Anchor>
         </Group>
 
@@ -278,6 +219,12 @@ export default function WeddingInvitation() {
               </Anchor>
               <Anchor href="#gallery" onClick={() => setOpened(false)}>
                 Gallery
+              </Anchor>
+              <Anchor href="#entourage" onClick={() => setOpened(false)}>
+                Entourage
+              </Anchor>
+              <Anchor href="#faq" onClick={() => setOpened(false)}>
+                FAQ
               </Anchor>
               <Anchor href="#rsvp" onClick={() => setOpened(false)}>
                 RSVP
@@ -348,6 +295,7 @@ export default function WeddingInvitation() {
             <Text className="section-title">Until We Say I Do</Text>
 
             <Box className="gold-divider footer-divider" />
+
           </Box>
 
           <SimpleGrid
@@ -383,22 +331,21 @@ export default function WeddingInvitation() {
                 aosDelay={100}
               >
                 <Text className="story-text">
-                  Jasper and Daniella met in 2016 during their senior year of
-                  high school. What began as a simple friendship soon blossomed
-                  into something deeper. They spent countless days hanging out,
-                  sharing laughs, and simply enjoying each other's company until
-                  they became the best of friends. After a year of friendship,
-                  they realized there was something more between them. In 2017,
-                  they took a leap of faith and turned their friendship into a
-                  relationship.
+                  Jasper and Daniella met in 2016 during their senior year of high
+                  school. What began as a simple friendship soon blossomed into
+                  something deeper. They spent countless days hanging out, sharing
+                  laughs, and simply enjoying each other's company until they became
+                  the best of friends. After a year of friendship, they realized
+                  there was something more between them. In 2017, they took a leap
+                  of faith and turned their friendship into a relationship.
                 </Text>
 
                 <Text className="story-text">
-                  People often say that dating your best friend is risky because
-                  it could ruin the friendship. For Jasper and Daniella, though,
-                  taking that chance was the best decision they ever made. It
-                  turns out that "ruining" the friendship was worth it because
-                  it became the beginning of their forever.
+                  People often say that dating your best friend is risky because it
+                  could ruin the friendship. For Jasper and Daniella, though, taking
+                  that chance was the best decision they ever made. It turns out that
+                  "ruining" the friendship was worth it because it became the
+                  beginning of their forever.
                 </Text>
 
                 <Box className="story-quote">
@@ -409,51 +356,26 @@ export default function WeddingInvitation() {
               </StorySection>
             </Grid.Col>
 
-            {/* Image AOS zoom */}
+            {/* Photos */}
             <Grid.Col span={{ base: 12, md: 6 }}>
-              <Box
-                className="story-image-placeholder"
-                data-aos="zoom-in"
-                data-aos-delay="200"
-              >
-                A &amp; J
+              <Box className="story-images">
+                {storyImages.map(({ label, url, position }, i) => (
+                  <Box
+                    key={label}
+                    className={i === 0 ? "story-image-main" : "story-image-secondary"}
+                    data-aos="zoom-in"
+                    data-aos-delay={200 + i * 200}
+                  >
+                    <img
+                      src={url}
+                      alt={label}
+                      className="story-photo"
+                      style={{ objectPosition: position || "center" }}
+                    />
+                  </Box>
+                ))}
               </Box>
             </Grid.Col>
-
-            {/* Image 2 */}
-            {/* <Grid.Col span={{ base: 12, md: 6 }}>
-              <Box
-                className="story-image-placeholder story-image-wide"
-                data-aos="zoom-in"
-                data-aos-delay="100"
-              >
-                2021
-              </Box>
-            </Grid.Col>
-
-            Chapter II
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <StorySection
-                chapter="Chapter II"
-                title="Three Continents Later"
-                aosDelay={200}
-              >
-                <Text className="story-text">
-                  Kyoto in cherry blossom season. A rooftop in Lisbon. The
-                  southern tip of Patagonia in the driving rain. In each place
-                  they discovered something new — about the world and, more
-                  importantly, about each other. By the time Arlo proposed on a
-                  ferry crossing the Bosphorus, Jane had already known her
-                  answer for two years.
-                </Text>
-
-                <Text className="story-text story-text-spaced">
-                  Now, After almost a decade, after countless travels and
-                  adventures from beaches to mountains, they’re ready to give
-                  their greatest adventure a forever name.
-                </Text>
-              </StorySection>
-            </Grid.Col> */}
           </Grid>
         </Container>
       </Box>
@@ -516,7 +438,7 @@ export default function WeddingInvitation() {
           </Stack>
 
           <Box className="gallery-grid">
-            {galleryItems.map(({ label, url, position }, i) => (
+            {galleryItems.map(({ label, url, position, brightness }, i) => (
               <Box
                 key={label}
                 className="gallery-item"
@@ -528,7 +450,10 @@ export default function WeddingInvitation() {
                     src={url}
                     alt={label}
                     className="gallery-image"
-                    style={{ objectPosition: position || "center" }}
+                    style={{
+                      objectPosition: position || "center",
+                      filter: `brightness(${brightness ?? 0.97})`,
+                    }}
                   />
                   {/* <Text className="gallery-label">{label}</Text> */}
                 </Box>

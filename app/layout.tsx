@@ -43,7 +43,10 @@ const cormorantGaramond = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: "J & D",
-  description: "Created By FJD Studio",
+  description: "Created By Dos",
+  icons: {
+    icon: process.env.NEXT_PUBLIC_LOGO,
+  },
 };
 
 interface IRootLayout {

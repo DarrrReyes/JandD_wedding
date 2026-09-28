@@ -8,19 +8,21 @@ const Footer = () => {
         <Box className="gold-divider footer-divider" />
 
         <Flex direction={'column'} >
-        <Text className="footer-names">Jasper & Daniella</Text>
-        <Text className="footer-date">1st December 2026</Text>
+          <Text className="footer-names">Jasper & Daniella</Text>
+          <Text className="footer-date">1st December 2026</Text>
 
-      <Box className="gold-divider" mt={17}/>
+          <Box className="gold-divider" mt={17} />
 
-        <Group justify="center" wrap="wrap" gap="xl" className="footer-links" mt={15}>
-          <Anchor href="#story">Our Story</Anchor>
-          <Anchor href="#celebration">Details</Anchor>
-          <Anchor href="#gallery">Gallery</Anchor>
-          <Anchor href="#rsvp">RSVP</Anchor>
-        </Group>
+          <Group justify="center" wrap="wrap" gap="xl" className="footer-links" mt={15}>
+            <Anchor href="#story">Our Story</Anchor>
+            <Anchor href="#celebration">Details</Anchor>
+            <Anchor href="#gallery">Gallery</Anchor>
+            <Anchor href="#entourage">Entourage</Anchor>
+            <Anchor href="#faq">FAQ</Anchor>
+            <Anchor href="#rsvp">RSVP</Anchor>
+          </Group>
         </Flex>
-        
+
 
         <Flex direction={'column'} gap={5} align="center">
           <Text className="footer-thanks">
