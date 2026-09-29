@@ -7,7 +7,7 @@ interface CelebrationCardProps {
   whenSub?: string[];
   venue: string;
   location: string;
-  img: string;
+  img: string | undefined;
   details: string[];
   aosDelay?: number;
   remarks?: string;
@@ -46,7 +46,7 @@ export function CelebrationCard({
             className="map-link"
           >
             <img
-              src={img}
+              src={img || ""}
               alt={`View ${venue} on Google Maps`}
               className="map-image"
             />
