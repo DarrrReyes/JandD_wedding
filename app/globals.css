@@ -113,6 +113,107 @@ section {
       transparent);
 }
 
+
+/* ==========================================================
+   SITE LOADER  (logo shown before the landing page)
+   ----------------------------------------------------------
+   REMINDERS
+   - Full-screen overlay; z-index (300) must stay ABOVE nav (100)
+     and the mobile drawer, or the logo will render behind them.
+   - Uses the same NEXT_PUBLIC_LOGO asset as the nav logo.
+   - Controlled from React state ("loading" -> add/remove the
+     "site-loader-hidden" class). Don't unmount it the instant
+     loading flips false — the opacity/visibility transition
+     below needs ~0.6s to finish, so delay unmounting or just
+     leave it in the DOM permanently with pointer-events: none.
+   - While visible, lock scroll in JS: document.body.style.overflow
+     = loading ? "hidden" : "".
+========================================================== */
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  background: var(--midnight);
+ 
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+ 
+.site-loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+ 
+.site-loader-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+ 
+.site-loader-logo {
+  width: 52px;
+  height: 48px;
+  z-index: 1;
+  animation: loaderPulse 1.8s ease-in-out infinite;
+}
+ 
+/* Thin rotating gold ring around the logo */
+.site-loader-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-top-color: var(--gold);
+  animation: loaderSpin 1.4s linear infinite;
+}
+ 
+@keyframes loaderPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+ 
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  .site-loader-logo,
+  .site-loader-ring {
+    animation: none;
+  }
+}
+ 
+@media (max-width: 768px) {
+  .site-loader-inner {
+    width: 80px;
+    height: 80px;
+  }
+ 
+  .site-loader-logo {
+    width: 42px;
+    height: 38px;
+  }
+}
+
 /* =========================
    NAV (FIXED + CLEAN)
 ========================= */

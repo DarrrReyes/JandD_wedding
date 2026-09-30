@@ -106,8 +106,16 @@ export default function WeddingInvitation() {
   ];
   // Story
   const storyImages = [
-    { label: "Jasper & Daniella FOREVER", url: process.env.NEXT_PUBLIC_STORY_ONE, position: "center" },
-    { label: "Jasper & Daniella HSH", url: process.env.NEXT_PUBLIC_STORY_TWO, position: "center" },
+    {
+      label: "Jasper & Daniella FOREVER",
+      url: process.env.NEXT_PUBLIC_STORY_ONE,
+      position: "center",
+    },
+    {
+      label: "Jasper & Daniella HSH",
+      url: process.env.NEXT_PUBLIC_STORY_TWO,
+      position: "center",
+    },
   ];
 
   // RSVP
@@ -156,8 +164,38 @@ export default function WeddingInvitation() {
     };
   }, []);
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const minTime = new Promise((resolve) => setTimeout(resolve, 1800));
+    const pageLoad = new Promise((resolve) => {
+      if (document.readyState === "complete") {
+        // @ts-ignore
+        resolve();
+      } else {
+        window.addEventListener("load", resolve, { once: true });
+      }
+    });
+
+    Promise.all([minTime, pageLoad]).then(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = loading ? "hidden" : "";
+  }, [loading]);
+
   return (
     <>
+      <Box className={`site-loader${loading ? "" : " site-loader-hidden"}`}>
+        <Box className="site-loader-inner">
+          <img
+            src={process.env.NEXT_PUBLIC_LOGO}
+            alt="J & D"
+            className="site-loader-logo"
+          />
+          <Box className="site-loader-ring" />
+        </Box>
+      </Box>
       {/* Nav */}
       <nav className={scrolled ? "scrolled" : ""}>
         <a href="#home" className="nav-logo">
@@ -295,7 +333,6 @@ export default function WeddingInvitation() {
             <Text className="section-title">Until We Say I Do</Text>
 
             <Box className="gold-divider footer-divider" />
-
           </Box>
 
           <SimpleGrid
@@ -331,21 +368,22 @@ export default function WeddingInvitation() {
                 aosDelay={100}
               >
                 <Text className="story-text">
-                  Jasper and Daniella met in 2016 during their senior year of high
-                  school. What began as a simple friendship soon blossomed into
-                  something deeper. They spent countless days hanging out, sharing
-                  laughs, and simply enjoying each other's company until they became
-                  the best of friends. After a year of friendship, they realized
-                  there was something more between them. In 2017, they took a leap
-                  of faith and turned their friendship into a relationship.
+                  Jasper and Daniella met in 2016 during their senior year of
+                  high school. What began as a simple friendship soon blossomed
+                  into something deeper. They spent countless days hanging out,
+                  sharing laughs, and simply enjoying each other's company until
+                  they became the best of friends. After a year of friendship,
+                  they realized there was something more between them. In 2017,
+                  they took a leap of faith and turned their friendship into a
+                  relationship.
                 </Text>
 
                 <Text className="story-text">
-                  People often say that dating your best friend is risky because it
-                  could ruin the friendship. For Jasper and Daniella, though, taking
-                  that chance was the best decision they ever made. It turns out that
-                  "ruining" the friendship was worth it because it became the
-                  beginning of their forever.
+                  People often say that dating your best friend is risky because
+                  it could ruin the friendship. For Jasper and Daniella, though,
+                  taking that chance was the best decision they ever made. It
+                  turns out that "ruining" the friendship was worth it because
+                  it became the beginning of their forever.
                 </Text>
 
                 <Box className="story-quote">
@@ -362,7 +400,9 @@ export default function WeddingInvitation() {
                 {storyImages.map(({ label, url, position }, i) => (
                   <Box
                     key={label}
-                    className={i === 0 ? "story-image-main" : "story-image-secondary"}
+                    className={
+                      i === 0 ? "story-image-main" : "story-image-secondary"
+                    }
                     data-aos="zoom-in"
                     data-aos-delay={200 + i * 200}
                   >
@@ -500,7 +540,7 @@ export default function WeddingInvitation() {
             <Box className="entourage-card-body">
               {/* Groom & Bride + Nuptials */}
               <Box className="entourage-couple-names">
-                <Flex gap={10} justify={'center'}>
+                <Flex gap={10} justify={"center"}>
                   <Text component="span" className="entourage-name">
                     {entourage.groom}
                   </Text>
