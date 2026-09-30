@@ -9,8 +9,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  allowedDevOrigins: ['192.168.0.238'],
-  output: "standalone",
+  // allowedDevOrigins: ['192.168.0.238'],
+  // output: "standalone",
   /* config options here */
 };
 
