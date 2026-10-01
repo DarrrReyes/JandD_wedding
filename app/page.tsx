@@ -119,6 +119,7 @@ export default function WeddingInvitation() {
   ];
 
   // RSVP
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<RSVPFormValues>({
@@ -131,6 +132,7 @@ export default function WeddingInvitation() {
   });
 
   const handleSubmit = form.onSubmit(async (values) => {
+    setSubmitting(true);
     const payload = {
       name: values.name,
       remarks: values.remarks,
@@ -142,10 +144,9 @@ export default function WeddingInvitation() {
       if (res.status === 200 || res.status === 201) {
         console.log("Created guest:", res.data);
         setSubmitted(true);
-      } else {
-        console.log("Failed to create guest");
       }
     } catch (error) {
+      setSubmitting(false);
       console.error("Error:", error);
     }
   });
@@ -692,15 +693,6 @@ export default function WeddingInvitation() {
                     <Text className="entourage-col-center-label">
                       Groomsmen
                     </Text>
-                  </Box>
-                  <Box className="entourage-col-right">
-                    <Text className="entourage-col-center-label">
-                      Bridesmaids
-                    </Text>
-                  </Box>
-                </Box>
-                <Box className="entourage-two-col entourage-two-col-lists entourage-two-col-tight">
-                  <Box className="entourage-col-left">
                     {entourage.groomsmen.map((n) => (
                       <Text
                         key={n}
@@ -711,6 +703,9 @@ export default function WeddingInvitation() {
                     ))}
                   </Box>
                   <Box className="entourage-col-right">
+                    <Text className="entourage-col-center-label">
+                      Bridesmaids
+                    </Text>
                     {entourage.bridesmaids.map((n) => (
                       <Text
                         key={n}
@@ -826,6 +821,7 @@ export default function WeddingInvitation() {
           </Stack>
 
           <RSVPCard
+            submitting={submitting}
             submitted={submitted}
             form={form}
             handleSubmit={handleSubmit}

@@ -14,24 +14,24 @@ import { UseFormReturnType } from "@mantine/form";
 
 type RSVPCardProps = {
   submitted: boolean;
+  submitting: boolean;
   form: UseFormReturnType<RSVPFormValues>;
   handleSubmit: () => void;
 };
 
 export default function RSVPCard({
   submitted,
+  submitting,
   form,
   handleSubmit,
 }: RSVPCardProps) {
   return (
     <Box className="rsvp-card" data-aos="fade-up" data-aos-delay="150">
       {submitted ? (
-        <Flex align="center" py={40} direction={'column'} gap={15}>
+        <Flex align="center" py={40} direction={"column"} gap={15}>
           <Box className="gold-divider" />
 
-          <Text className="sub-title-gold">
-            Thank You
-          </Text>
+          <Text className="sub-title-gold">Thank You</Text>
 
           <Text className="rsvp-message">
             We have received your response and can't wait to celebrate with you.
@@ -62,7 +62,7 @@ export default function RSVPCard({
               />
             </Box>
 
-            <Flex direction={'column'} gap={20} >
+            <Flex direction={"column"} gap={20}>
               <Text className="form-label">Will you be joining us?</Text>
 
               <Radio.Group {...form.getInputProps("attendance")}>
@@ -98,10 +98,13 @@ export default function RSVPCard({
               />
             </Box>
 
-            <Button type="submit" 
-            className="rsvp-btn" 
-            bg={'#03396c'}
-            radius={0}>
+            <Button
+              type="submit"
+              className="rsvp-btn"
+              bg={"#03396c"}
+              loading={submitting}
+              radius={0}
+            >
               Send My Reply
             </Button>
           </Stack>
