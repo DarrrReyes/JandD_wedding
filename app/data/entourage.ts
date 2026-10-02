@@ -11,7 +11,7 @@ export const entourage = {
     "Mr. Joseph Andrada",
     "Mr. Nestor Soquiat",
     "Mr. Allan Umandap",
-    "Mr. Dan Mendez",
+    "Mr. Daniel Mendez",
     "Mr. Nerlito Hernaez",
     "Mr. Edward Sillano",
   ],
