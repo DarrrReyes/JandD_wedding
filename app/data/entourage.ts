@@ -37,7 +37,7 @@ export const entourage = {
     "Maria Jemilia Faith Andrada",
   ],
 
-  coinBearer: "Sameeh Nazer",
+  coinBearer: "Sameeh Naser",
 
   bibleBearer: "Ashton Cloud Umandap",
 

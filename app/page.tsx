@@ -210,6 +210,12 @@ export default function WeddingInvitation() {
 
   const handleEnter = () => setLoading(false);
 
+  // FOR PACKAGE EXAMPLE ENGINES
+  // "engines": {
+  //   "node": "22.9.0",
+  //   "pnpm": "9.12.1"
+  // }
+
   return (
     <>
       {/* Loader */}
