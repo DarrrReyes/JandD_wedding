@@ -19,7 +19,6 @@ import "@mantine/dates/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/carousel/styles.css";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,9 +42,21 @@ const cormorantGaramond = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: "J & D",
-  description: "Created By Dos",
+  description: "Designed & Developed by Dos",
   icons: {
     icon: process.env.NEXT_PUBLIC_LOGO,
+  },
+  openGraph: {
+    title: "Jasper & Daniella | Wedding Invitation",
+    description: "We joyfully invite you to celebrate our wedding with us.",
+    images: [
+      {
+        url: process.env.NEXT_PUBLIC_LOGO_URL!,
+        width: 1200,
+        height: 630,
+        alt: "Jasper & Daniella Wedding Invitation",
+      },
+    ],
   },
 };
 
