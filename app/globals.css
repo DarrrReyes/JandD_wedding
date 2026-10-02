@@ -105,14 +105,15 @@ section {
   width: 100%;
   height: 1px;
   margin: 0 auto;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(212, 175, 55, 0.4),
-      var(--gold),
-      rgba(212, 175, 55, 0.4),
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.4),
+    var(--gold),
+    rgba(212, 175, 55, 0.4),
+    transparent
+  );
 }
-
 
 /* ==========================================================
    SITE LOADER  (logo shown before the landing page)
@@ -128,29 +129,44 @@ section {
      leave it in the DOM permanently with pointer-events: none.
    - While visible, lock scroll in JS: document.body.style.overflow
      = loading ? "hidden" : "".
+   - Tap-to-enter: the loader does NOT auto-dismiss. Once the page
+     is ready ("site-loader-ready" class), it becomes clickable and
+     shows "Tap to Begin"; onEnter() (passed from the page) is what
+     actually sets loading to false.
+   - This tap doubles as the user gesture that unlocks the
+     background-music autoplay in MusicToggle — don't call
+     e.stopPropagation() on this click, or the music's own
+     document-click listener won't fire.
 ========================================================== */
 .site-loader {
   position: fixed;
   inset: 0;
   z-index: 300;
- 
+
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
- 
+  gap: 28px;
+
   background: var(--midnight);
- 
+  cursor: default;
+
   opacity: 1;
   visibility: visible;
   transition: opacity 0.6s ease, visibility 0.6s ease;
 }
- 
+
+.site-loader-ready {
+  cursor: pointer;
+}
+
 .site-loader-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
- 
+
 .site-loader-inner {
   position: relative;
   display: flex;
@@ -159,15 +175,20 @@ section {
   width: 100px;
   height: 100px;
 }
- 
+
 .site-loader-logo {
   width: 52px;
   height: 48px;
   z-index: 1;
   animation: loaderPulse 1.8s ease-in-out infinite;
 }
- 
-/* Thin rotating gold ring around the logo */
+
+/* Once ready: logo stays put, just stops breathing */
+.site-loader-ready .site-loader-logo {
+  animation: none;
+}
+
+/* Thin rotating gold ring around the logo — only shown while loading */
 .site-loader-ring {
   position: absolute;
   inset: 0;
@@ -175,8 +196,57 @@ section {
   border: 1px solid rgba(212, 175, 55, 0.15);
   border-top-color: var(--gold);
   animation: loaderSpin 1.4s linear infinite;
+
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
- 
+
+.site-loader-ready .site-loader-ring {
+  animation: none;
+  opacity: 0;
+}
+
+.site-loader-inner {
+  transition: transform 0.3s ease;
+}
+
+.site-loader-ready:hover .site-loader-inner {
+  transform: scale(1.05);
+}
+
+/* Hidden until ready; fades in next to the (now still) logo */
+.site-loader-prompt {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.site-loader-ready .site-loader-prompt {
+  opacity: 1;
+  transform: translateY(0);
+  animation: loaderPromptPulse 2s ease-in-out 0.7s infinite;
+}
+
+.site-loader-ready:hover .site-loader-prompt {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes loaderPromptPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @keyframes loaderPulse {
   0%,
   100% {
@@ -188,29 +258,124 @@ section {
     transform: scale(1.04);
   }
 }
- 
+
 @keyframes loaderSpin {
   to {
     transform: rotate(360deg);
   }
 }
- 
+
 @media (prefers-reduced-motion: reduce) {
   .site-loader-logo,
-  .site-loader-ring {
+  .site-loader-ring,
+  .site-loader-ready .site-loader-prompt {
     animation: none;
   }
 }
- 
+
 @media (max-width: 768px) {
   .site-loader-inner {
     width: 80px;
     height: 80px;
   }
- 
+
   .site-loader-logo {
     width: 42px;
     height: 38px;
+  }
+
+  .site-loader-prompt {
+    font-size: clamp(16px, 5vw, 20px);
+    letter-spacing: 2px;
+  }
+}
+
+/* ==========================================================
+   BACKGROUND MUSIC TOGGLE
+   ----------------------------------------------------------
+   REMINDERS
+   - Needs NEXT_PUBLIC_BG_MUSIC in .env (audio file in /public).
+   - Most browsers block autoplay with sound until the guest
+     interacts with the page — see the "first click" effect in
+     the component code, which starts the song on the guest's
+     first tap/click anywhere on the page.
+   - z-index (150) sits above page content but below the site
+     loader (300), so it stays hidden behind the loader while
+     the page is still loading.
+========================================================== */
+.music-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 150;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: rgba(11, 26, 47, 0.85);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.music-toggle:hover {
+  border-color: var(--gold);
+  transform: scale(1.05);
+}
+
+/* Spins only while playing (see .music-toggle-playing) */
+.music-toggle-disc {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: musicSpin 3s linear infinite;
+  animation-play-state: paused;
+}
+
+.music-toggle-playing .music-toggle-disc {
+  animation-play-state: running;
+}
+
+.music-toggle-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+@keyframes musicSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-toggle-disc {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .music-toggle {
+    right: 16px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .music-toggle-disc {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -313,9 +478,11 @@ nav.scrolled {
 
   /* optional: reduce nav background intensity on mobile */
   nav {
-    background: linear-gradient(to bottom,
-        rgba(11, 26, 47, 0.98),
-        rgba(11, 26, 47, 0.6));
+    background: linear-gradient(
+      to bottom,
+      rgba(11, 26, 47, 0.98),
+      rgba(11, 26, 47, 0.6)
+    );
   }
 }
 
@@ -382,7 +549,6 @@ nav.scrolled {
 }
 
 @media (max-width: 768px) {
-
   /* Make drawer feel full-screen + immersive */
   .app-drawer-content {
     width: 100% !important;
@@ -412,7 +578,6 @@ nav.scrolled {
   .mantine-Drawer-header {
     background: transparent !important;
   }
-
   /* Optional: make close button easier to tap */
   .mantine-Drawer-close {
     width: 44px;
@@ -424,7 +589,6 @@ nav.scrolled {
   .app-drawer-close svg {
     stroke: var(--gold);
   }
-
   .app-drawer-close:hover {
     background: transparent !important;
     opacity: 0.8;
@@ -488,9 +652,11 @@ nav.scrolled {
   inset: 0;
   z-index: 0;
 
-  background: radial-gradient(ellipse at 50% 60%,
-      #132440 0%,
-      var(--midnight) 70%);
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    #132440 0%,
+    var(--midnight) 70%
+  );
 }
 
 /* =========================
@@ -531,8 +697,10 @@ nav.scrolled {
 
   z-index: 2;
 
-  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1px,
-      transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.2) 1px,
+    transparent 1px
+  );
 
   background-size: 18px 18px;
 
@@ -901,7 +1069,6 @@ nav.scrolled {
   max-width: 460px;
   margin: 0 auto;
   padding-bottom: 16%;
-
 }
 
 .story-image-main {
@@ -911,31 +1078,20 @@ nav.scrolled {
   overflow: hidden;
   border: 1px solid rgba(212, 175, 55, 0.25);
   border-radius: 2px;
-
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 24px rgba(212, 175, 55, 0.12);
-  filter: brightness(0.85);
-
-  /* Floating effect, visible at rest */
-  /* box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 24px rgba(228, 188, 56, 0.18),
-    0 0 0 1px rgba(226, 186, 56, 0.1);
-
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; */
-  /* overflow: hidden; */
-
 }
 
 .story-image-secondary {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 48%;
+  width: 44%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border: 6px solid var(--midnight);
   border-radius: 2px;
   box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35),
     0 18px 36px rgba(0, 0, 0, 0.45);
-  filter: brightness(0.75);
 }
 
 .story-photo {
@@ -943,8 +1099,7 @@ nav.scrolled {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  /* overridden inline per photo */
+  object-position: center; /* overridden inline per photo */
   transition: transform 0.6s ease;
 }
 
@@ -1011,29 +1166,6 @@ nav.scrolled {
    - Mobile (<= 768px): everything stacks and centers.
 ========================================================== */
 
-/* Optional card look: add class "entourage-framed" in the JSX to enable */
-.entourage-framed {
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  background: rgba(255, 255, 255, 0.02);
-}
-
-/* Diamond divider bg must match the card color, or a small box shows behind it.
-   (0.02 white over midnight ≈ #0f1e33) */
-.entourage-framed .entourage-divider::after {
-  background: #0f1e33;
-}
-
-/* Optional: gold accent line on top, like the Celebration cards */
-.entourage-framed::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 40px;
-  right: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-
 .entourage-section {
   background: var(--midnight);
   padding: 120px 0;
@@ -1056,8 +1188,7 @@ nav.scrolled {
   height: auto;
   z-index: 0;
   pointer-events: none;
-  mix-blend-mode: screen;
-  /* removes the dark image background */
+  mix-blend-mode: screen; /* removes the dark image background */
   opacity: 0.92;
 }
 
@@ -1089,9 +1220,11 @@ nav.scrolled {
   content: "";
   position: absolute;
   inset: -40px -20px;
-  background: radial-gradient(ellipse at center,
-      rgba(212, 175, 55, 0.1),
-      transparent 65%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(212, 175, 55, 0.1),
+    transparent 65%
+  );
   z-index: -1;
   pointer-events: none;
 }
@@ -1105,10 +1238,10 @@ nav.scrolled {
 }
 
 .entourage-couple-amp {
-  /* display: inline-block; */
+  display: inline-block;
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
-  font-size: clamp(32px, 5vw, 52px) !important;
+  font-size: clamp(20px, 3vw, 28px);
   color: var(--gold);
   margin: 0 14px;
 }
@@ -1154,8 +1287,7 @@ nav.scrolled {
   padding: 0 10px;
   font-size: 8px;
   color: var(--gold);
-  background: var(--midnight);
-  /* keep in sync with .entourage-section bg */
+  background: var(--midnight); /* keep in sync with .entourage-section bg */
 }
 
 /* ---------- Two column layout ---------- */
@@ -1175,10 +1307,12 @@ nav.scrolled {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: linear-gradient(to bottom,
-      transparent,
-      rgba(212, 175, 55, 0.3),
-      transparent);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(212, 175, 55, 0.3),
+    transparent
+  );
 }
 
 .entourage-two-col-tight {
@@ -1668,7 +1802,6 @@ nav.scrolled {
 =========================== */
 
 @media (max-width: 768px) {
-
   /* .dress-swatches {
     gap: 18px;
     margin-top: 24px;
@@ -1707,7 +1840,6 @@ nav.scrolled {
     /* grid-template-columns: 1fr; */
     gap: 16px;
   }
-
   /* .dress-swatches {
     gap: 14px;
   } */
@@ -1787,12 +1919,11 @@ nav.scrolled {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  /* default */
+  object-position: center; /* default */
   display: block;
   z-index: 0;
   transition: transform 0.6s ease;
-  /* filter: brightness(0.97); */
+  filter: brightness(0.97);
 }
 
 /* Light bluish tint — tints without darkening/covering */
@@ -1800,10 +1931,11 @@ nav.scrolled {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg,
-      /* rgba(70, 120, 200, 0.22) 0%, */
-      /* rgba(100, 150, 220, 0.12) 50%, */
-      rgba(70, 120, 200, 0.22) 100%);
+  background: linear-gradient(
+    160deg,
+    /* rgba(70, 120, 200, 0.22) 0%, */ /* rgba(100, 150, 220, 0.12) 50%, */
+      rgba(70, 120, 200, 0.22) 100%
+  );
   mix-blend-mode: overlay;
   z-index: 1;
   pointer-events: none;
@@ -1815,10 +1947,12 @@ nav.scrolled {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top,
-      rgba(6, 12, 24, 0.6) 0%,
-      rgba(6, 12, 24, 0.1) 35%,
-      rgba(6, 12, 24, 0) 60%);
+  background: linear-gradient(
+    to top,
+    rgba(6, 12, 24, 0.6) 0%,
+    rgba(6, 12, 24, 0.1) 35%,
+    rgba(6, 12, 24, 0) 60%
+  );
   z-index: 2;
   pointer-events: none;
 }
@@ -2061,6 +2195,40 @@ nav.scrolled {
 
 .rsvp-btn:active {
   transform: translateY(0);
+}
+
+/* ---------- RSVP submit: loading state ----------
+   REMINDERS
+   - Disable the button while submitting so it can't be double-clicked.
+   - Spinner border color (#03396c) matches .rsvp-btn's text color,
+     since the button background stays gold while loading.
+*/
+.rsvp-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.rsvp-btn-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(3, 57, 108, 0.3);
+  border-top-color: #03396c;
+  border-radius: 50%;
+  animation: rsvpSpin 0.7s linear infinite;
+}
+
+@keyframes rsvpSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-btn-spinner {
+    animation: none;
+  }
 }
 
 .rsvp-thank-you {

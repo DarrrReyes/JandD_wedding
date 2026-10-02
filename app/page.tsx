@@ -12,7 +12,7 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import dayjs, { Dayjs } from "dayjs";
 import { useForm } from "@mantine/form";
@@ -30,6 +30,8 @@ import { entourage } from "./data/entourage";
 import { dressSwatches } from "./data/dresscode";
 import { faqData } from "./data/faq";
 import { galleryItems } from "./data/gallery";
+import MusicToggle from "./components/MusicToggle/MusicToggle";
+import Loader from "./components/Loader/Loader";
 
 const WEDDING_DATE = dayjs("2026-12-01T14:00:00");
 
@@ -165,38 +167,56 @@ export default function WeddingInvitation() {
     };
   }, []);
 
-  const [loading, setLoading] = useState(true);
+  // Loader
+  const [ready, setReady] = useState(false); // page assets finished loading
+  const [loading, setLoading] = useState(true); // loader is still shown
 
-  useEffect(() => {
-    const minTime = new Promise((resolve) => setTimeout(resolve, 1800));
-    const pageLoad = new Promise((resolve) => {
-      if (document.readyState === "complete") {
-        // @ts-ignore
-        resolve();
-      } else {
-        window.addEventListener("load", resolve, { once: true });
-      }
-    });
-
-    Promise.all([minTime, pageLoad]).then(() => setLoading(false));
+  // Always start at the top, even on refresh when the URL still has a
+  // section hash (e.g. #rsvp) or the browser wants to restore the old
+  // scroll position. useLayoutEffect runs before the browser paints, so
+  // there's no visible flash of the old position first.
+  // NOTE: import useLayoutEffect from "react" alongside your other hooks.
+  useLayoutEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
   }, []);
 
+  // Mark the page "ready" once BOTH of these are true:
+  //  - the page has actually finished loading, AND
+  //  - at least 3 seconds have passed
+  // Whichever finishes last wins, so a fast connection still sees the
+  // spinner for a full 3s before "Tap to Begin" appears, and a slow
+  // connection still waits for the real page load on top of that.
+  useEffect(() => {
+    const minTime = new Promise<void>((resolve) => {
+      setTimeout(resolve, 3000);
+    });
+    const pageLoad = new Promise<void>((resolve) => {
+      if (document.readyState === "complete") {
+        resolve();
+      } else {
+        window.addEventListener("load", () => resolve(), { once: true });
+      }
+    });
+    Promise.all([minTime, pageLoad]).then(() => setReady(true));
+  }, []);
+
+  // Lock page scroll while the loader is visible
   useEffect(() => {
     document.body.style.overflow = loading ? "hidden" : "";
   }, [loading]);
 
+  const handleEnter = () => setLoading(false);
+
   return (
     <>
-      <Box className={`site-loader${loading ? "" : " site-loader-hidden"}`}>
-        <Box className="site-loader-inner">
-          <img
-            src={process.env.NEXT_PUBLIC_LOGO}
-            alt="J & D"
-            className="site-loader-logo"
-          />
-          <Box className="site-loader-ring" />
-        </Box>
-      </Box>
+      {/* Loader */}
+      <Loader ready={ready} loading={loading} onEnter={handleEnter} />
+
+      <MusicToggle src={process.env.NEXT_PUBLIC_BG_MUSIC} />
+
       {/* Nav */}
       <nav className={scrolled ? "scrolled" : ""}>
         <a href="#home" className="nav-logo">
