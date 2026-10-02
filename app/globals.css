@@ -1085,7 +1085,7 @@ nav.scrolled {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 44%;
+  width: 48%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border: 6px solid var(--midnight);
@@ -1166,6 +1166,29 @@ nav.scrolled {
    - Mobile (<= 768px): everything stacks and centers.
 ========================================================== */
 
+/* Optional card look: add class "entourage-framed" in the JSX to enable */
+.entourage-framed {
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Diamond divider bg must match the card color, or a small box shows behind it.
+   (0.02 white over midnight ≈ #0f1e33) */
+.entourage-framed .entourage-divider::after {
+  background: #0f1e33;
+}
+
+/* Optional: gold accent line on top, like the Celebration cards */
+.entourage-framed::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
 .entourage-section {
   background: var(--midnight);
   padding: 120px 0;
@@ -1241,9 +1264,9 @@ nav.scrolled {
   display: inline-block;
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
-  font-size: clamp(20px, 3vw, 28px);
+  font-size: clamp(32px, 5vw, 52px) !important;
   color: var(--gold);
-  margin: 0 14px;
+  /* margin: 0 14px; */
 }
 
 .entourage-nuptials {
